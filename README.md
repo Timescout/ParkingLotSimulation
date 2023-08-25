@@ -1,0 +1,1 @@
+This program simulates a parking lot with the goal of comparing driver behavior against how they perform in a crouded parking lot. Drivers arrive at the parking lot, park, idle for a time during which they shop and do other activities, and then they leave. The total distance driven is recorded and output along with driver characteristics into a .csv file. 
