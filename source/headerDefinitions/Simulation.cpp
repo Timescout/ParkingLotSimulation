@@ -202,12 +202,9 @@ void Simulation::outputParameters()
     *output_ << "seed,simulation Time, parking Occupancy\n"
              << seed_ << "," << simulationTime_ << "," << parkingOccupancy_ << "\n";
     *output_ << "Buildings\n"
-             << "Corner 1, Corner 2, Enterences\n";
+             << "Enterences\n";
     for (auto i = buildings_.begin(); i != buildings_.end(); i++)
     {
-        Location corner1 = i->getCorner1();
-        Location corner2 = i->getCorner2();
-        *output_ << corner1.x << " " << corner1.y << "," << corner2.x << " " << corner2.y  << ",";
         std::vector<Location> buildingEnterences = i->getEntereneces();
         for (auto j = buildingEnterences.begin(); j != buildingEnterences.end(); j++)
         {

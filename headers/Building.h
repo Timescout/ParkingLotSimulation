@@ -23,9 +23,6 @@ private:
     //FRIEND_TEST(BuildingUnitTest, DefaultConstructor_Creates_DefaultBuilding);
     //FRIEND_TEST(BuildingUnitTest, ArgumentedConstructorSingleEnterence_Creates_ArgumentedBuilding);
     //FRIEND_TEST(BuildingUnitTest, ArgumentedConstructorManyEnterences_Creates_ArgumentedBuilding);
-    
-    /// @brief Used to determine the position of the Building in space.
-    Location corner1_, corner2_;
 
     /// @brief A vector of the Locations of enterences to a Building. 
     std::vector<Location> enterences_;
@@ -40,13 +37,13 @@ public:
     /// @param corner1 Location of the first corner of this Building.
     /// @param corner2 Location of the second corner of this Building.
     /// @param enterence Location of an enterence to this Building.
-    Building(Location corner1, Location corner2, Location enterence);
+    Building(Location enterence);
 
     /// @brief Argumented Constructor for Building with multiple enterences.
     /// @param corner1 Location of the first corner of this Building.
     /// @param corner2 Location of the second corner of this Building.
     /// @param enterences Vector of enterences for this Building
-    Building(Location corner1, Location corner2, std::vector<Location> enterences);
+    Building(std::vector<Location> enterences);
 
 
     // Deconstructor
@@ -54,17 +51,12 @@ public:
 
     ///// Get and Set /////
 
-    Location getCorner1();
-
-    Location getCorner2();
-
     std::vector<Location> getEntereneces();
 
     ///// Other class methods /////
 
     /// @brief Adds an enterence to this Building.
     /// @param enterence The Location to add the enterenece.
-    /// @throw std::out_of_range If the enterence is outside the bounds of the Building defined by corner 1 and corner 2.
     void addEnterence(Location enterence);
 
     /// @brief Finds the closest enterence to referencePoint that this Building has.

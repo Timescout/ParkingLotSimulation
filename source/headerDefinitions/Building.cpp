@@ -9,16 +9,12 @@
 
 Building::Building() {}
 
-Building::Building(Location corner1, Location corner2, Location enterence) :
-corner1_(corner1),
-corner2_(corner2)
+Building::Building(Location enterence)
 {
     addEnterence(enterence);
 }
 
-Building::Building(Location corner1, Location corner2, std::vector<Location> enterences) : 
-corner1_(corner1),
-corner2_(corner2)
+Building::Building(std::vector<Location> enterences)
 {
     for (std::vector<Location>::iterator i = enterences.begin(); i != enterences.end(); i++)
     {
@@ -28,24 +24,10 @@ corner2_(corner2)
 
 Building::~Building() {}
 
-Location Building::getCorner1() { return corner1_; }
-
-Location Building::getCorner2() { return corner2_; }
-
 std::vector<Location> Building::getEntereneces() { return enterences_; }
 
 void Building::addEnterence(Location enterence)
 {
-    // Check that the enterence is within the square bounds created by the corners.
-    if 
-    ( 
-        ! (std::min(corner1_.x, corner2_.x) <= enterence.x && enterence.x <= std::max(corner1_.x, corner2_.x)) &&
-        ! (std::min(corner1_.y, corner2_.y) <= enterence.y && enterence.y <= std::max(corner1_.y, corner2_.y))
-    ) 
-    {
-        throw std::out_of_range("Tried to add enterence outside of Building bounds");
-    }
-
     enterences_.push_back(enterence);
 }
 
