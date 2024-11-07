@@ -13,3 +13,4 @@ Future work
 - Reaccess tests and testing
 - Set up Gtest
 - File automatically created if no file with same name is present
+- File in that sets up a simulation
