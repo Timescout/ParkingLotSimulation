@@ -9,7 +9,7 @@
 #include <Utilities.h>
 
 #include <vector>
-#include <gtest/gtest.h>
+//#include <gtest/gtest.h>
 
 struct ParkingSpot
 {
@@ -43,14 +43,14 @@ class Strip
 {
 private:
     // For unit testing.
-    FRIEND_TEST(StripUnitTest, ArgumentedConstructor_Constructs_CorrectObject);
-    FRIEND_TEST(StripUnitTest, SetEnterece2_Sets_Enterece2);
-    FRIEND_TEST(StripUnitTest, End_returns_IteratorToEnd);
-    FRIEND_TEST(StripUnitTest, SetEnterece1_Sets_Enterece1);
-    FRIEND_TEST(StripUnitTest, GetNumberParkingSpots_Gets_CorrectValue);
-    FRIEND_TEST(StripUnitTest, GetClosestVacantSpotEmptyLotEnterence1_Gets_ClosestParkingSpot);
-    FRIEND_TEST(StripUnitTest, GetClosestVacantSpotEmptyLotEnterence2_Gets_ClosestParkingSpot);
-    FRIEND_TEST(StripUnitTest, GetClosestVacantSpotFullLot_Returns_EndIterator);
+    //FRIEND_TEST(StripUnitTest, ArgumentedConstructor_Constructs_CorrectObject);
+    //FRIEND_TEST(StripUnitTest, SetEnterece2_Sets_Enterece2);
+    //FRIEND_TEST(StripUnitTest, End_returns_IteratorToEnd);
+    //FRIEND_TEST(StripUnitTest, SetEnterece1_Sets_Enterece1);
+    //FRIEND_TEST(StripUnitTest, GetNumberParkingSpots_Gets_CorrectValue);
+    //FRIEND_TEST(StripUnitTest, GetClosestVacantSpotEmptyLotEnterence1_Gets_ClosestParkingSpot);
+    //FRIEND_TEST(StripUnitTest, GetClosestVacantSpotEmptyLotEnterence2_Gets_ClosestParkingSpot);
+    //FRIEND_TEST(StripUnitTest, GetClosestVacantSpotFullLot_Returns_EndIterator);
 
     Location corner1_;
     Location corner2_;

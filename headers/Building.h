@@ -13,16 +13,16 @@
 #include <vector>
 #include <exception>
 #include <stdexcept>
-#include <gtest/gtest.h>
+//#include <gtest/gtest.h>
 
 class Building
 {
 private:
 
     // For testing Constructors
-    FRIEND_TEST(BuildingUnitTest, DefaultConstructor_Creates_DefaultBuilding);
-    FRIEND_TEST(BuildingUnitTest, ArgumentedConstructorSingleEnterence_Creates_ArgumentedBuilding);
-    FRIEND_TEST(BuildingUnitTest, ArgumentedConstructorManyEnterences_Creates_ArgumentedBuilding);
+    //FRIEND_TEST(BuildingUnitTest, DefaultConstructor_Creates_DefaultBuilding);
+    //FRIEND_TEST(BuildingUnitTest, ArgumentedConstructorSingleEnterence_Creates_ArgumentedBuilding);
+    //FRIEND_TEST(BuildingUnitTest, ArgumentedConstructorManyEnterences_Creates_ArgumentedBuilding);
     
     /// @brief Used to determine the position of the Building in space.
     Location corner1_, corner2_;

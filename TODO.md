@@ -5,3 +5,11 @@ TODO:
 - Flush out Readme
 - Make drivers more customizable and more defined
 - Output file tells you more about the simulation
+
+
+
+
+Future work
+- Reaccess tests and testing
+- Set up Gtest
+- File automatically created if no file with same name is present

@@ -10,6 +10,7 @@
 
 int main()
 {
+    
     std::ofstream dataFile;
     dataFile.open("./Data/demoTest.csv");
 

@@ -5,6 +5,7 @@
 */
 
 #include <Car.h>
+#include <stdexcept>
 
 constexpr TimePoint* Car::defaultCurrentTime;
 constexpr TimeLength Car::defaultTimeDriven;
