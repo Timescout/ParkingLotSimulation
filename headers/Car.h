@@ -4,10 +4,11 @@
     Defines the Car class
 */
 
-#pragma once
+#ifndef CAR
+#define CAR
 
 #include <Utilities.h>
-#include <Strip.h>
+#include <ParkingSpot.h>
 
 #include <exception>
 #include <random>
@@ -102,3 +103,5 @@ public:
     
 
 };
+
+#endif
