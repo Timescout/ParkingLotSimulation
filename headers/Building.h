@@ -2,7 +2,7 @@
     Parking Lot Simulator
     Andrew Bergman
 
-    Defines the Building class
+    Defines the Building class. A Building has enterances which Cars want to park near so that the drivers don't have to walk as far to and from their car.
 */
 
 #ifndef BUILDING
