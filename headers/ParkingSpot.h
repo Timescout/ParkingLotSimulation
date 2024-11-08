@@ -1,5 +1,4 @@
-#ifndef PARKING_SPOT
-#define PARKING_SPOT
+#pragma once
 
 #include <Utilities.h>
 
@@ -24,5 +23,3 @@ struct ParkingSpot
     static constexpr Distance defaultDistanceFromEnterence = 0;
     static constexpr int parkingSpotWidth = 8; // Note parking spots are 8 feet by 18 feet. 
 };
-
-#endif

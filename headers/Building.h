@@ -5,8 +5,7 @@
     Defines the Building class. A Building has enterances which Cars want to park near so that the drivers don't have to walk as far to and from their car.
 */
 
-#ifndef BUILDING
-#define BUILDING
+#pragma once
 
 #include <Utilities.h>
 
@@ -71,7 +70,3 @@ public:
     /// @throw std::logic_error if there are no enterences to this Building.
     Distance getClosestEnterenceDistance(Location referencePoint);
 };
-
-
-
-#endif

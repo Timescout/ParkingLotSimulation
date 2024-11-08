@@ -4,8 +4,7 @@
     Defines the Car class
 */
 
-#ifndef CAR
-#define CAR
+#pragma once
 
 #include <Utilities.h>
 #include <ParkingSpot.h>
@@ -36,6 +35,7 @@ private:
 
     Location currentLocation_;
 
+    // The location that the car exits the parking lot through. 
     Location endLocation_;
 
     Location buildingEnterence_;
@@ -103,5 +103,3 @@ public:
     
 
 };
-
-#endif
