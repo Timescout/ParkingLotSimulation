@@ -40,7 +40,7 @@ struct Event
     Event(TimePoint eventTime, std::list<Car>::iterator carItr, EventType type);
 };
 
-/// @brief A class that can compare Events.
+/// @brief A class that can compare Events. Used to sort events by when they happen.
 class EventComparer
 {
 public:
