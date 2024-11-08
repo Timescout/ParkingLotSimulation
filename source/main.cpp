@@ -21,7 +21,7 @@ int main()
     // add 4 buildings to the simulation
     for (int i = 0; i < 4; i++)
     {
-        simulation.addBuilding(Building(Location(0, 52 * i), Location(50, 52*(i+1)), Location(50, 52*(i+1)-26)));
+        simulation.addBuilding(Building(Location(50, 52*(i+1)-26)));
     }
     int numSpots = 16; // number of spots per side of strip
     // add 4 strips to the parking lot
