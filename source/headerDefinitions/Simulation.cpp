@@ -175,8 +175,7 @@ TimeLength Simulation::findParkingSpot(Car& car)
                 car.spotIndex = parkingSpotItr;
                 Distance distanceDriven = enterence1 ? parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterence1 : parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterence2;
                 //TODO bad, dont do this. \/
-                totalTimeDriven += (1/(float)Car::speed) * distanceDriven
-                ;
+                totalTimeDriven += (1/(float)Car::speed) * distanceDriven;
                 car.addTimeDriven(totalTimeDriven); // exit
                 return totalTimeDriven;
             }
