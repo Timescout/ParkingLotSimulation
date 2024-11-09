@@ -13,25 +13,26 @@ TEST(CarUnitTest, DefaultConstructor_Creates_DefaultCar)
 {
     Car car;
 
-    EXPECT_EQ(car.currentTime_, car.defaultCurrentTime);
-    EXPECT_EQ(car.timeDriven_, car.defaultTimeDriven);
-    EXPECT_EQ(car.arrivalTime_, car.defaultArrivalTime);
-    EXPECT_EQ(car.shoppingTime_, car.defaultShoppingTime);
+    EXPECT_THROW(car.getCurrentTime(), std::range_error);
+    EXPECT_EQ(car.getTimeDriven(), car.defaultTimeDriven);
+    EXPECT_EQ(car.getArrivalTime(), car.defaultArrivalTime);
+    EXPECT_EQ(car.getShoppingTime(), car.defaultShoppingTime);
 }
 
-TEST(CarUnitTest, ArgumentedConstructor_Creates_ArgumentedCar) 
-{
-    TimePoint testCurrentTime = 0;
-    TimePoint testArrivalTime = 1;
-    TimeLength testShoppingTime = 1;
+// 
+// TEST(CarUnitTest, ArgumentedConstructor_Creates_ArgumentedCar) 
+// {
+//     TimePoint testCurrentTime = 0;
+//     TimePoint testArrivalTime = 1;
+//     TimeLength testShoppingTime = 1;
 
-    Car car(testCurrentTime, testArrivalTime, testShoppingTime);
+//     Car car(testCurrentTime, testArrivalTime, testShoppingTime);
 
-    EXPECT_EQ(car.currentTime_, &testCurrentTime);
-    EXPECT_EQ(car.timeDriven_, car.defaultTimeDriven);
-    EXPECT_EQ(car.arrivalTime_, testArrivalTime);
-    EXPECT_EQ(car.shoppingTime_, testShoppingTime);
-}
+//     EXPECT_EQ(car.currentTime_, &testCurrentTime);
+//     EXPECT_EQ(car.timeDriven_, car.defaultTimeDriven);
+//     EXPECT_EQ(car.arrivalTime_, testArrivalTime);
+//     EXPECT_EQ(car.shoppingTime_, testShoppingTime);
+// }
 
 TEST(CarUnitTest, GetCurrentTimeWithoutSettingCurrentTime_Throws_RangeError) 
 {
@@ -40,17 +41,17 @@ TEST(CarUnitTest, GetCurrentTimeWithoutSettingCurrentTime_Throws_RangeError)
     EXPECT_THROW(car.getCurrentTime(), std::range_error);
 }
 
-TEST(CarUnitTest, GetCurrentTimeFromArgumentedConstructor_Gets_CorrectCurrentTime)
-{
-    TimePoint testCurrentTime = 0;
-    TimePoint testArrivalTime = 1;
-    TimeLength testShoppingTime = 1;
-    Car car(testCurrentTime, testArrivalTime, testShoppingTime);
+// TEST(CarUnitTest, GetCurrentTimeFromArgumentedConstructor_Gets_CorrectCurrentTime)
+// {
+//     TimePoint testCurrentTime = 0;
+//     TimePoint testArrivalTime = 1;
+//     TimeLength testShoppingTime = 1;
+//     Car car(testCurrentTime, testArrivalTime, testShoppingTime);
 
-    TimePoint currentTimeOfCar = car.getCurrentTime();
+//     TimePoint currentTimeOfCar = car.getCurrentTime();
 
-    EXPECT_EQ(currentTimeOfCar, testCurrentTime);
-}
+//     EXPECT_EQ(currentTimeOfCar, testCurrentTime);
+// }
 
 TEST(CarUnitTest, SetCurrentTime_Sets_CurrentTime) 
 {

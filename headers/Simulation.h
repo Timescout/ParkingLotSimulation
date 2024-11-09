@@ -63,7 +63,7 @@ public:
 
     void addBuilding(Building building);
 
-    void addenterance(Location enterance);
+    void addEnterance(Location enterance);
 
     void addParkingStrip(Strip parkingStrip);
 

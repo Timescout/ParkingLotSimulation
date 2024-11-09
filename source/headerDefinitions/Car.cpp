@@ -19,17 +19,17 @@ Car::Car() :
     shoppingTime_(defaultShoppingTime)
 {}
 
-Car::Car(TimePoint& currentTime, TimePoint arrivalTime, TimeLength shoppingTime, Location startLocation, Location endLocation, Location buildingenterance, float distanceToMeWeight, float distanceToenteranceWeight) :
+Car::Car(TimePoint& currentTime, TimePoint arrivalTime, TimeLength shoppingTime, Location startLocation, Location endLocation, Location buildingEnterance, float distanceToMeWeight, float distanceToEnteranceWeight) :
     currentTime_(&currentTime),
     timeDriven_(defaultTimeDriven),
     arrivalTime_(arrivalTime),
     shoppingTime_(shoppingTime),
     currentLocation_(startLocation),
     endLocation_(endLocation),
-    buildingenterance_(buildingenterance),
+    buildingEnterance_(buildingEnterance),
     distanceToMeWeight(distanceToMeWeight),
-    distanceToenteranceWeight(distanceToenteranceWeight),
-    arrivalenterance(startLocation)
+    distanceToEnteranceWeight(distanceToEnteranceWeight),
+    arrivalEnterance(startLocation)
 {}
 
 Car::~Car()
@@ -61,6 +61,6 @@ void Car::setCurrentLocation(Location newLocation) { currentLocation_ = newLocat
 
 Location Car::getEndLocation() { return endLocation_; }
 
-Location Car::getBuildingenterance() { return buildingenterance_; }
+Location Car::getBuildingEnterance() { return buildingEnterance_; }
 
 void Car::addTimeDriven(TimeLength timeDriven) { timeDriven_ += timeDriven; }

@@ -13,137 +13,127 @@ TEST(BuildingUnitTest, DefaultConstructor_Creates_DefaultBuilding)
 {
     Building building;
 
-    EXPECT_EQ(building.corner1_, Location());
-    EXPECT_EQ(building.corner2_, Location());
-    EXPECT_EQ(building.enterences_, std::vector<Location>());
+
+    EXPECT_EQ(building.getEnteraneces(), std::vector<Location>());
 }
 
-TEST(BuildingUnitTest, ArgumentedConstructorSingleEnterence_Creates_ArgumentedBuilding)
+TEST(BuildingUnitTest, ArgumentedConstructorSingleEnterance_Creates_ArgumentedBuilding)
 {
-    Location enterence(.5, .5);
-    std::vector<Location> enterenceVector {enterence};
-    Location corner1(0, 0);
-    Location corner2(5, 5);
+    Location enterance(.5, .5);
+    std::vector<Location> enteranceVector {enterance};
 
-    Building building(corner1, corner2, enterence);
+    Building building(enterance);
 
-    EXPECT_EQ(building.corner1_, corner1);
-    EXPECT_EQ(building.corner2_, corner2);
-    EXPECT_EQ(building.enterences_, enterenceVector);
+    EXPECT_EQ(building.getEnteraneces(), enteranceVector);
 }
 
-TEST(BuildingUnitTest, ArgumentedConstructorManyEnterences_Creates_ArgumentedBuilding)
+TEST(BuildingUnitTest, ArgumentedConstructorManyEnterances_Creates_ArgumentedBuilding)
 {
-    Location enterence1(.5, .5);
-    Location enterence2(0, 3);
-    std::vector<Location> enterenceVector {enterence1, enterence2};
-    Location corner1(0, 0);
-    Location corner2(5, 5);
+    Location enterance1(.5, .5);
+    Location enterance2(0, 3);
+    std::vector<Location> enteranceVector {enterance1, enterance2};
 
-    Building building(corner1, corner2, enterenceVector);
+    Building building(enteranceVector);
 
-    EXPECT_EQ(building.corner1_, corner1);
-    EXPECT_EQ(building.corner2_, corner2);
-    EXPECT_EQ(building.enterences_, enterenceVector);
+    EXPECT_EQ(building.getEnteraneces(), enteranceVector);
 }
 
-TEST(BuildingUnitTest, GetCorner1_Gets_CorrectCorner1)
-{
-    Building building;
+// Depreciated; buildings no longer have corners.
+// TEST(BuildingUnitTest, GetCorner1_Gets_CorrectCorner1)
+// {
+//     Building building;
 
-    Location corner1OfBuilding = building.getCorner1();
+//     Location corner1OfBuilding = building.getCorner1();
 
-    EXPECT_EQ(corner1OfBuilding, Location());
-}
+//     EXPECT_EQ(corner1OfBuilding, Location());
+// }
 
-TEST(BuildingUnitTest, GetCorner2_Gets_CorrectCorner2)
-{
-    Building building;
+// TEST(BuildingUnitTest, GetCorner2_Gets_CorrectCorner2)
+// {
+//     Building building;
 
-    Location corner2OfBuilding = building.getCorner2();
+//     Location corner2OfBuilding = building.getCorner2();
 
-    EXPECT_EQ(corner2OfBuilding, Location());
-}
+//     EXPECT_EQ(corner2OfBuilding, Location());
+// }
 
-TEST(BuildingUnitTest, GetEnterences_Gets_CorrectEntrences)
+TEST(BuildingUnitTest, GetEnterances_Gets_CorrectEntrences)
 {
     Building building;
 
-    std::vector<Location> enterencesOfBuilding = building.getEntereneces();
+    std::vector<Location> enterancesOfBuilding = building.getEnteraneces();
 
-    EXPECT_EQ(enterencesOfBuilding, std::vector<Location>());
+    EXPECT_EQ(enterancesOfBuilding, std::vector<Location>());
 }
 
-TEST(BuildingUnitTest, AddEnterenceInBounds_Adds_Enterence)
+TEST(BuildingUnitTest, AddEnteranceInBounds_Adds_Enterance)
 {
-    std::vector<Location> enterences{Location(0, 0), Location(1, 1)};
-    Building building(Location(0, 0), Location(5, 5), enterences[0]);
+    std::vector<Location> enterances{Location(0, 0), Location(1, 1)};
+    Building building(enterances[0]);
 
-    building.addEnterence(enterences[1]);
+    building.addEnterance(enterances[1]);
 
-    EXPECT_EQ(building.getEntereneces(), enterences);
+    EXPECT_EQ(building.getEnteraneces(), enterances);
 }
 
-TEST(BuildingUnitTest, AddEnterenceOutOfBounds_Throws_OutOfRangeError)
+// Depreciated; Buildings no longer have corners.
+// TEST(BuildingUnitTest, AddEnteranceOutOfBounds_Throws_OutOfRangeError)
+// {
+//     Building building;
+
+//     EXPECT_THROW(building.addEnterance(Location(2, 2)), std::out_of_range);
+// }
+
+TEST(BuildingUnitTest, GetClosestEnteranceOneEnterance_Gets_ClosestEnterance)
 {
     Building building;
-
-    EXPECT_THROW(building.addEnterence(Location(2, 2)), std::out_of_range);
-}
-
-TEST(BuildingUnitTest, GetClosestEnterenceOneEnterence_Gets_ClosestEnterence)
-{
-    Building building;
-    Location enterence(0, 0);
-    building.addEnterence(enterence);
+    Location enterance(0, 0);
+    building.addEnterance(enterance);
     Location referencePoint(10, 10);
 
-    Location closestEnterenceToReferencePoint = building.getClosestEnterence(referencePoint);
+    Location closestEnteranceToReferencePoint = building.getClosestEnterance(referencePoint);
 
-    EXPECT_EQ(closestEnterenceToReferencePoint, enterence);
+    EXPECT_EQ(closestEnteranceToReferencePoint, enterance);
 }
 
-TEST(BuildingUnitTest, GetClosestEnterenceTwoEnterences_Gets_ClosestEnterence)
+TEST(BuildingUnitTest, GetClosestEnteranceTwoEnterances_Gets_ClosestEnterance)
 {
-    Location corner1OfBuilding(0, 0);
-    Location corner2OfBuilding(10, 10);
-    std::vector<Location> enterencesToBuilding {Location(0, 0), Location(1, 1)};
-    Building building(corner1OfBuilding, corner2OfBuilding, enterencesToBuilding);
-    Location referencePoint = Location(2, 2);
+    std::vector<Location> enterancesToBuilding {Location(0, 0), Location(1, 1)};
+    Building building(enterancesToBuilding);
+    Location referencePoint(2, 2);
 
-    Location closestEnterenceToReferencePoint = building.getClosestEnterence(referencePoint);
+    Location closestEnteranceToReferencePoint = building.getClosestEnterance(referencePoint);
 
-    EXPECT_EQ(closestEnterenceToReferencePoint, enterencesToBuilding[1]);
+    EXPECT_EQ(closestEnteranceToReferencePoint, enterancesToBuilding[1]);
 }
 
-TEST(BuildingUnitTest, GetClosestEnterenceNoEnterences_Throws_LogicError)
+TEST(BuildingUnitTest, GetClosestEnteranceNoEnterances_Throws_LogicError)
 {
-    Building building(Location(0, 0), Location(1, 1), std::vector<Location>());
-
-    EXPECT_THROW(building.getClosestEnterence(Location(0, 0)), std::logic_error);
-}
-
-TEST(BuildingUnitTest, GetClosestEnterenceDistanceOneEnterence_Gets_CorrectDistance)
-{
-    Location enterence(0, 0);
     Building building;
-    building.addEnterence(enterence);
+    Location referencePoint(0,0);
+
+    EXPECT_THROW(building.getClosestEnterance(referencePoint), std::logic_error);
+}
+
+TEST(BuildingUnitTest, GetClosestEnteranceDistanceOneEnterance_Gets_CorrectDistance)
+{
+    Location enterance(0, 0);
+    Building building;
+    building.addEnterance(enterance);
     Location referencePoint(10, 10);
 
-    Distance closestEnterenceDistanceToReferencePoint = building.getClosestEnterenceDistance(referencePoint);
+    Distance closestEnteranceDistanceToReferencePoint = building.getClosestEnteranceDistance(referencePoint);
 
-    EXPECT_EQ(closestEnterenceDistanceToReferencePoint, distance(enterence, referencePoint));
+    EXPECT_EQ(closestEnteranceDistanceToReferencePoint, distance(enterance, referencePoint));
 }
 
-TEST(BuildingUnitTest, GetClosestEnterenceDistanceTwoEnterences_Gets_CorrectDistance)
+TEST(BuildingUnitTest, GetClosestEnteranceDistanceTwoEnterances_Gets_CorrectDistance)
 {
-    Location corner1OfBuilding(0, 0);
-    Location corner2OfBuilding(10, 10);
-    std::vector<Location> enterencesToBuilding {Location(0, 0), Location(1, 1)};
-    Building building(corner1OfBuilding, corner2OfBuilding, enterencesToBuilding);
+    std::vector<Location> enterancesToBuilding {Location(0, 0), Location(1, 1)};
+    Building building(enterancesToBuilding);
     Location referencePoint = Location(2, 2);
 
-    Distance closestEnterenceDistanceToReferencePoint = building.getClosestEnterenceDistance(referencePoint);
+    Distance closestEnteranceDistanceToReferencePoint = building.getClosestEnteranceDistance(referencePoint);
 
-    EXPECT_EQ(closestEnterenceDistanceToReferencePoint, distance(enterencesToBuilding[1], referencePoint));
+    EXPECT_EQ(closestEnteranceDistanceToReferencePoint, distance(enterancesToBuilding[1], referencePoint));
 }

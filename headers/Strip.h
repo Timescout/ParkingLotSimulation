@@ -18,16 +18,6 @@
 class Strip
 {
 private:
-    // For unit testing.
-    //FRIEND_TEST(StripUnitTest, ArgumentedConstructor_Constructs_CorrectObject);
-    //FRIEND_TEST(StripUnitTest, SetEnterece2_Sets_Enterece2);
-    //FRIEND_TEST(StripUnitTest, End_returns_IteratorToEnd);
-    //FRIEND_TEST(StripUnitTest, SetEnterece1_Sets_Enterece1);
-    //FRIEND_TEST(StripUnitTest, GetNumberParkingSpots_Gets_CorrectValue);
-    //FRIEND_TEST(StripUnitTest, GetClosestVacantSpotEmptyLotenterance1_Gets_ClosestParkingSpot);
-    //FRIEND_TEST(StripUnitTest, GetClosestVacantSpotEmptyLotenterance2_Gets_ClosestParkingSpot);
-    //FRIEND_TEST(StripUnitTest, GetClosestVacantSpotFullLot_Returns_EndIterator);
-
     Location corner1_;
     Location corner2_;
     Location enterance1_;
@@ -48,11 +38,11 @@ public:
     /// @return A count of the spots.
     const int getNumberParkingSpots();
 
-    Location getenterance1();
-    void setenterance1(Location newenterance);
+    Location getEnterance1();
+    void setEnterance1(Location newEnterance);
 
-    Location getenterance2();
-    void setenterance2(Location newenterance);
+    Location getEnterance2();
+    void setEnterance2(Location newEnterance);
 
     /// @brief Gets an iterator to the end of the parkingSpots_ vector.
     std::vector<ParkingSpot>::iterator end();
@@ -61,4 +51,6 @@ public:
 
     Location getCorner1();
     Location getCorner2();
+
+    std::vector<ParkingSpot> getParkingSpots();
 };

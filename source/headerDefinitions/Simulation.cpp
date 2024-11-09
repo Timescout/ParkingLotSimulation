@@ -11,7 +11,7 @@ Simulation::Simulation() {}
 
 void Simulation::addBuilding(Building building) { buildings_.push_back(building); }
 
-void Simulation::addenterance(Location enterance) { enterances_.push_back(enterance); }
+void Simulation::addEnterance(Location enterance) { enterances_.push_back(enterance); }
 
 void Simulation::addParkingStrip(Strip parkingStrip) { parkingStrips_.push_back(parkingStrip); }
 
@@ -41,10 +41,10 @@ void Simulation::generateArrivals()
         TimeLength shoppingTime = shoppingTimeModel(generator);
         Location startLocation = enterances_[rand() % enterances_.size()];
         Location endLocation = enterances_[rand() % enterances_.size()];
-        Location buildingenterance =  buildings_[rand() % buildings_.size()].getEntereneces()[0];
+        Location buildingEnterance =  buildings_[rand() % buildings_.size()].getEnteraneces()[0];
         float weightToMe = rand();
         float weightStripToBuilding = rand();
-        *i = Car(currentTime_, arrivalTime, shoppingTime, startLocation, endLocation, buildingenterance, weightToMe, weightStripToBuilding);
+        *i = Car(currentTime_, arrivalTime, shoppingTime, startLocation, endLocation, buildingEnterance, weightToMe, weightStripToBuilding);
         
         // generate arrival Events for the Cars.
         addEvent(Event(arrivalTime, i, EventType::Arrive));
@@ -62,7 +62,7 @@ void Simulation::simulate()
     carsInLot = 0;
     outputParameters();
     *output_ << "Cars\n"
-             << "Arrival Time,Shopping Time,Distance to me weight,Distance to enterance Weight,enterance Location,Starting Location,Strip number,Spot number,Total Time Driven\n";
+             << "Arrival Time,Shopping Time,Distance to me weight,Distance to enterance Weight, enterance Location,Starting Location,Strip number,Spot number,Total Time Driven\n";
 
     // Main simulation loop.
     while (futureEventsList_.size() > 0)
@@ -137,9 +137,9 @@ TimeLength Simulation::findParkingSpot(Car& car)
     std::vector<std::pair<float, int>> stripsRanked;
     for (int i = 0; i < parkingStrips_.size(); i++)
     {
-        Distance distanceCartoStrip = taxiDistance(car.getCurrentLocation(), parkingStrips_[i].getenterance1());
-        Distance distanceStripToBuilding = distance(parkingStrips_[i].getenterance1(), car.getBuildingenterance());
-        stripsRanked.push_back(std::pair<float, int>(distanceCartoStrip * car.distanceToMeWeight + distanceStripToBuilding * car.distanceToenteranceWeight, i));
+        Distance distanceCartoStrip = taxiDistance(car.getCurrentLocation(), parkingStrips_[i].getEnterance1());
+        Distance distanceStripToBuilding = distance(parkingStrips_[i].getEnterance1(), car.getBuildingEnterance());
+        stripsRanked.push_back(std::pair<float, int>(distanceCartoStrip * car.distanceToMeWeight + distanceStripToBuilding * car.distanceToEnteranceWeight, i));
     }
     std::sort(stripsRanked.begin(), stripsRanked.end());
 
@@ -151,7 +151,7 @@ TimeLength Simulation::findParkingSpot(Car& car)
         for (int i = 0; i < stripsRanked.size(); i ++)
         {
             // determine which enterance to search for a spot from.
-            Location enteranceUsed = enterance1 ? parkingStrips_[stripsRanked[i].second].getenterance1() : parkingStrips_[stripsRanked[i].second].getenterance2();
+            Location enteranceUsed = enterance1 ? parkingStrips_[stripsRanked[i].second].getEnterance1() : parkingStrips_[stripsRanked[i].second].getEnterance2();
             // drive to the enterance
             totalTimeDriven += (1/(float)Car::speed) * taxiDistance(car.getCurrentLocation(), enteranceUsed);
             // find the next open spot
@@ -163,17 +163,17 @@ TimeLength Simulation::findParkingSpot(Car& car)
                 Location corner2 = parkingStrips_[stripsRanked[i].second].getCorner2();
                 if (abs(corner1.x-corner2.x) > abs(corner1.y - corner2.y))
                 {
-                    newLocation.x += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromenterance1: parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromenterance2 ;
+                    newLocation.x += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance1: parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance2 ;
                 }
                 else
                 {
-                    newLocation.y += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromenterance1: parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromenterance2 ;
+                    newLocation.y += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance1: parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance2 ;
                 }
                 car.setCurrentLocation(newLocation);
                 car.stripIndex = stripsRanked[i].second;
                 //car.parkingSpotItr_ = parkingSpotItr;
                 car.spotIndex = parkingSpotItr;
-                Distance distanceDriven = enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromenterance1 : parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromenterance2;
+                Distance distanceDriven = enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance1 : parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance2;
                 //TODO bad, dont do this. \/
                 totalTimeDriven += (1/(float)Car::speed) * distanceDriven;
                 car.addTimeDriven(totalTimeDriven); // exit
@@ -182,9 +182,9 @@ TimeLength Simulation::findParkingSpot(Car& car)
             // if a spot is not found, try the next strip
             enterance1 = !enterance1;
             // add time driven down the strip.
-            totalTimeDriven += (1/(float)Car::speed) * distance(parkingStrips_[stripsRanked[i].second].getenterance1(), parkingStrips_[stripsRanked[i].second].getenterance2());
+            totalTimeDriven += (1/(float)Car::speed) * distance(parkingStrips_[stripsRanked[i].second].getEnterance1(), parkingStrips_[stripsRanked[i].second].getEnterance2());
             // set car's current location to the opposite enterance.
-            car.setCurrentLocation(enterance1 ? parkingStrips_[stripsRanked[i].second].getenterance1() : parkingStrips_[stripsRanked[i].second].getenterance2());
+            car.setCurrentLocation(enterance1 ? parkingStrips_[stripsRanked[i].second].getEnterance1() : parkingStrips_[stripsRanked[i].second].getEnterance2());
         }
     }
 
@@ -204,8 +204,8 @@ void Simulation::outputParameters()
              << "enterances\n";
     for (auto i = buildings_.begin(); i != buildings_.end(); i++)
     {
-        std::vector<Location> buildingenterances = i->getEntereneces();
-        for (auto j = buildingenterances.begin(); j != buildingenterances.end(); j++)
+        std::vector<Location> buildingEnterances = i->getEnteraneces();
+        for (auto j = buildingEnterances.begin(); j != buildingEnterances.end(); j++)
         {
             *output_ << j->x << " " << j->y << ",";
         }
@@ -217,8 +217,8 @@ void Simulation::outputParameters()
     {
         Location corner1 = i->getCorner1();
         Location corner2 = i->getCorner2();
-        Location enterance1 = i->getenterance1();
-        Location enternece2 = i->getenterance2();
+        Location enterance1 = i->getEnterance1();
+        Location enternece2 = i->getEnterance2();
         *output_ << corner1.x << " " << corner1.y << ","
                  << corner2.x << " " << corner2.y << ","
                  << enterance1.x << " " << enterance1.y << ","
@@ -238,9 +238,9 @@ void Simulation::outputCar(Car car)
     *output_ << car.getArrivalTime() << ","
              << car.getShoppingTime() << ","
              << car.distanceToMeWeight << ","
-             << car.distanceToenteranceWeight << ","
-             << car.getBuildingenterance().x << " " << car.getBuildingenterance().y << ","
-             << car.arrivalenterance.x << " " << car.arrivalenterance.y << ","
+             << car.distanceToEnteranceWeight << ","
+             << car.getBuildingEnterance().x << " " << car.getBuildingEnterance().y << ","
+             << car.arrivalEnterance.x << " " << car.arrivalEnterance.y << ","
              << car.stripIndex << ","
              << car.spotIndex << ","
              << car.getTimeDriven() << "\n";

@@ -50,23 +50,23 @@ public:
 
     ///// Get and Set /////
 
-    std::vector<Location> getEntereneces();
+    std::vector<Location> getEnteraneces();
 
     ///// Other class methods /////
 
     /// @brief Adds an enterance to this Building.
     /// @param enterance The Location to add the enterenece.
-    void addenterance(Location enterance);
+    void addEnterance(Location enterance);
 
     /// @brief Finds the closest enterance to referencePoint that this Building has.
     /// @param referencePoint The point that is considered for finding the closest enterance.
     /// @return The Location of the closest enterance.
     /// @throw std::logic_error If there are no enterances to this Building.
-    Location getClosestenterance(Location referencePoint);
+    Location getClosestEnterance(Location referencePoint);
 
     /// @brief Finds the distance to the closest enternece to referencePoint.
     /// @param referencePoint The point that is considered for finding the closest Distance.
     /// @return The Distance to the closest enterance.
     /// @throw std::logic_error if there are no enterances to this Building.
-    Distance getClosestenteranceDistance(Location referencePoint);
+    Distance getClosestEnteranceDistance(Location referencePoint);
 };
