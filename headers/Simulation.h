@@ -50,8 +50,8 @@ private:
     /// @brief Vector of buildings in the simulation. Buildings may "overlap".
     std::vector<Building> buildings_;
 
-    /// @brief Vector of the Locations of enterences to the Parking lot.
-    std::vector<Location> enterences_;
+    /// @brief Vector of the Locations of enterances to the Parking lot.
+    std::vector<Location> enterances_;
 
     /// @brief Vector that holds parking strips.
     std::vector<Strip> parkingStrips_;
@@ -63,7 +63,7 @@ public:
 
     void addBuilding(Building building);
 
-    void addEnterence(Location enterence);
+    void addenterance(Location enterance);
 
     void addParkingStrip(Strip parkingStrip);
 

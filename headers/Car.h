@@ -38,7 +38,7 @@ private:
     // The location that the car exits the parking lot through. 
     Location endLocation_;
 
-    Location buildingEnterence_;
+    Location buildingenterance_;
 
 
 
@@ -48,9 +48,9 @@ public:
     int spotIndex;
     float distanceToMeWeight;
 
-    Location arrivalEnterence;
+    Location arrivalenterance;
 
-    float distanceToEnterenceWeight;
+    float distanceToenteranceWeight;
 
     ///// Constructors and Deconstructors. /////
 
@@ -63,7 +63,7 @@ public:
     Car();
 
     // Argumented constructor, creates a Car with the given values.
-    Car(TimePoint& currentTime, TimePoint arrivalTime, TimeLength shoppingTime, Location startLocation, Location endLocation, Location buildingEnterence, float distanceToMeWeight, float distanceToEnterenceWeight);
+    Car(TimePoint& currentTime, TimePoint arrivalTime, TimeLength shoppingTime, Location startLocation, Location endLocation, Location buildingenterance, float distanceToMeWeight, float distanceToenteranceWeight);
 
     // Deconstructor. Sets currentTime_ to nullptr.
     ~Car();
@@ -90,7 +90,7 @@ public:
 
     Location getEndLocation();
 
-    Location getBuildingEnterence();
+    Location getBuildingenterance();
 
     ///// Other class methods /////
 

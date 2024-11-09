@@ -8,14 +8,14 @@
 
 constexpr bool ParkingSpot::defaultOccupied;
 constexpr TimePoint ParkingSpot::defaultNextVacantTime;
-constexpr Distance ParkingSpot::defaultDistanceFromEnterence;
+constexpr Distance ParkingSpot::defaultDistanceFromenterance;
 constexpr int ParkingSpot::parkingSpotWidth;
 
 ParkingSpot::ParkingSpot() :
     occupied(ParkingSpot::defaultOccupied),
     nextVacantTime(ParkingSpot::defaultNextVacantTime),
-    distanceFromEnterence1(ParkingSpot::defaultDistanceFromEnterence),
-    distanceFromEnterence2(ParkingSpot::defaultDistanceFromEnterence)
+    distanceFromenterance1(ParkingSpot::defaultDistanceFromenterance),
+    distanceFromenterance2(ParkingSpot::defaultDistanceFromenterance)
 {}
 
 void ParkingSpot::park(TimePoint nextVacant)
@@ -44,14 +44,14 @@ Strip::Strip(Location corner1, Location corner2) :
     parkingSpots_ = std::vector<ParkingSpot>(2 * numberSpots); // one parking spot for each side of the Strip
     for (int i = 0; i < parkingSpots_.size(); i++)
     {
-        parkingSpots_[i].distanceFromEnterence1 = (i/2)*ParkingSpot::parkingSpotWidth;
-        parkingSpots_[i].distanceFromEnterence2 = ((parkingSpots_.size()-i)/2)*ParkingSpot::parkingSpotWidth;
+        parkingSpots_[i].distanceFromenterance1 = (i/2)*ParkingSpot::parkingSpotWidth;
+        parkingSpots_[i].distanceFromenterance2 = ((parkingSpots_.size()-i)/2)*ParkingSpot::parkingSpotWidth;
     }
 }
 
 int Strip::getClosestVacantSpot(Location referencePoint, TimePoint startingTime) // TODO: refactor this code.
 {
-    bool direction = distance(referencePoint, enterence1_) < distance(referencePoint, enterence2_);
+    bool direction = distance(referencePoint, enterance1_) < distance(referencePoint, enterance2_);
     auto i = direction ? parkingSpots_.begin() : parkingSpots_.end()--;
     int increment = direction ? 1 : -1;
     TimePoint reachesSpot = startingTime;
@@ -67,13 +67,13 @@ int Strip::getClosestVacantSpot(Location referencePoint, TimePoint startingTime)
 
 const int Strip::getNumberParkingSpots() { return parkingSpots_.size(); }
 
-Location Strip::getEnterence1() { return enterence1_; }
+Location Strip::getenterance1() { return enterance1_; }
 
-void Strip::setEnterence1(Location newEnterence) { enterence1_ = newEnterence; }
+void Strip::setenterance1(Location newenterance) { enterance1_ = newenterance; }
 
-Location Strip::getEnterence2() { return enterence2_; }
+Location Strip::getenterance2() { return enterance2_; }
 
-void Strip::setEnterence2(Location newEnterence) { enterence2_ = newEnterence; }
+void Strip::setenterance2(Location newenterance) { enterance2_ = newenterance; }
 
 std::vector<ParkingSpot>::iterator Strip::end() { return parkingSpots_.end(); }
 

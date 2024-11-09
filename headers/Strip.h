@@ -24,14 +24,14 @@ private:
     //FRIEND_TEST(StripUnitTest, End_returns_IteratorToEnd);
     //FRIEND_TEST(StripUnitTest, SetEnterece1_Sets_Enterece1);
     //FRIEND_TEST(StripUnitTest, GetNumberParkingSpots_Gets_CorrectValue);
-    //FRIEND_TEST(StripUnitTest, GetClosestVacantSpotEmptyLotEnterence1_Gets_ClosestParkingSpot);
-    //FRIEND_TEST(StripUnitTest, GetClosestVacantSpotEmptyLotEnterence2_Gets_ClosestParkingSpot);
+    //FRIEND_TEST(StripUnitTest, GetClosestVacantSpotEmptyLotenterance1_Gets_ClosestParkingSpot);
+    //FRIEND_TEST(StripUnitTest, GetClosestVacantSpotEmptyLotenterance2_Gets_ClosestParkingSpot);
     //FRIEND_TEST(StripUnitTest, GetClosestVacantSpotFullLot_Returns_EndIterator);
 
     Location corner1_;
     Location corner2_;
-    Location enterence1_;
-    Location enterence2_;
+    Location enterance1_;
+    Location enterance2_;
 
     std::vector<ParkingSpot> parkingSpots_;
 
@@ -48,11 +48,11 @@ public:
     /// @return A count of the spots.
     const int getNumberParkingSpots();
 
-    Location getEnterence1();
-    void setEnterence1(Location newEnterence);
+    Location getenterance1();
+    void setenterance1(Location newenterance);
 
-    Location getEnterence2();
-    void setEnterence2(Location newEnterence);
+    Location getenterance2();
+    void setenterance2(Location newenterance);
 
     /// @brief Gets an iterator to the end of the parkingSpots_ vector.
     std::vector<ParkingSpot>::iterator end();

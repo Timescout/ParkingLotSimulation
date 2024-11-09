@@ -9,47 +9,47 @@
 
 Building::Building() {}
 
-Building::Building(Location enterence)
+Building::Building(Location enterance)
 {
-    addEnterence(enterence);
+    addenterance(enterance);
 }
 
-Building::Building(std::vector<Location> enterences)
+Building::Building(std::vector<Location> enterances)
 {
-    for (std::vector<Location>::iterator i = enterences.begin(); i != enterences.end(); i++)
+    for (std::vector<Location>::iterator i = enterances.begin(); i != enterances.end(); i++)
     {
-        addEnterence(*i);
+        addenterance(*i);
     }
 }
 
 Building::~Building() {}
 
-std::vector<Location> Building::getEntereneces() { return enterences_; }
+std::vector<Location> Building::getEntereneces() { return enterances_; }
 
-void Building::addEnterence(Location enterence)
+void Building::addenterance(Location enterance)
 {
-    enterences_.push_back(enterence);
+    enterances_.push_back(enterance);
 }
 
-Location Building::getClosestEnterence(Location referencePoint)
+Location Building::getClosestenterance(Location referencePoint)
 {
-    if (enterences_.size() == 0) { throw std::logic_error("Tried to getClosestEnterence when no enterences exist"); }
-    Location closestSoFar = enterences_[0];
+    if (enterances_.size() == 0) { throw std::logic_error("Tried to getClosestenterance when no enterances exist"); }
+    Location closestSoFar = enterances_[0];
     Distance closestDistance = distance(closestSoFar, referencePoint);
-    Distance distanceToNextEnterence;
-    for (std::vector<Location>::iterator i = (enterences_.begin()++); i != enterences_.end(); i++)
+    Distance distanceToNextenterance;
+    for (std::vector<Location>::iterator i = (enterances_.begin()++); i != enterances_.end(); i++)
     {
-        distanceToNextEnterence = distance(*i, referencePoint);
-        if (distanceToNextEnterence < closestDistance)
+        distanceToNextenterance = distance(*i, referencePoint);
+        if (distanceToNextenterance < closestDistance)
         {
             closestSoFar = *i;
-            closestDistance = distanceToNextEnterence;
+            closestDistance = distanceToNextenterance;
         }
     }
     return closestSoFar;
 }
 
-Distance Building::getClosestEnterenceDistance(Location referencePoint)
+Distance Building::getClosestenteranceDistance(Location referencePoint)
 {
-    return distance(getClosestEnterence(referencePoint), referencePoint);
+    return distance(getClosestenterance(referencePoint), referencePoint);
 }

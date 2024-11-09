@@ -28,15 +28,15 @@ int main()
     for (int i = 0; i < 4; i++)
     {
         Strip strip(Location(20, 52 * i), Location( 20 + 8 *numSpots, 52*(i+1)));
-        strip.setEnterence1(Location(20,  52 * i + 26));
-        strip.setEnterence2(Location(20 + 8 *numSpots,  52*(i+1)-26));
+        strip.setenterance1(Location(20,  52 * i + 26));
+        strip.setenterance2(Location(20 + 8 *numSpots,  52*(i+1)-26));
         simulation.addParkingStrip(strip);
     }
-    // add 4 Enterences to the parking lot
-    simulation.addEnterence(Location(10, 0));
-    simulation.addEnterence(Location(10, 52*4));
-    simulation.addEnterence(Location(20 + 8*numSpots + 10, 0));
-    simulation.addEnterence(Location(20 + 8*numSpots + 10, 52*4));
+    // add 4 enterances to the parking lot
+    simulation.addenterance(Location(10, 0));
+    simulation.addenterance(Location(10, 52*4));
+    simulation.addenterance(Location(20 + 8*numSpots + 10, 0));
+    simulation.addenterance(Location(20 + 8*numSpots + 10, 52*4));
     // generate the cars!
     simulation.setSeed(17);
     simulation.generateArrivals();

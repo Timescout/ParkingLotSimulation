@@ -6,8 +6,8 @@ struct ParkingSpot
 {
     bool occupied;
     TimePoint nextVacantTime;
-    Distance distanceFromEnterence1;
-    Distance distanceFromEnterence2;
+    Distance distanceFromenterance1;
+    Distance distanceFromenterance2;
 
     ParkingSpot();
 
@@ -20,6 +20,6 @@ struct ParkingSpot
 
     static constexpr bool defaultOccupied = false;
     static constexpr TimePoint defaultNextVacantTime = 0;
-    static constexpr Distance defaultDistanceFromEnterence = 0;
+    static constexpr Distance defaultDistanceFromenterance = 0;
     static constexpr int parkingSpotWidth = 8; // Note parking spots are 8 feet by 18 feet. 
 };

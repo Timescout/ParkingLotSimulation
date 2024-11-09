@@ -13,8 +13,8 @@
 class ConnectingRoad
 {
 private:
-    Location enterence1_;
-    Location enterence2_;
+    Location enterance1_;
+    Location enterance2_;
 public:
     ConnectingRoad();
 
