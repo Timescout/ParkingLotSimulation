@@ -17,7 +17,7 @@ Event::Event(TimePoint eventTime, std::list<Car>::iterator carItr, EventType typ
 
 EventComparer::EventComparer() {}
 
-bool EventComparer::comp(Event first, Event second) { return first.eventTime < second.eventTime; }
+bool EventComparer::comp(Event first, Event second) { return first.eventTime > second.eventTime; }
 
 bool EventComparer::equiv(Event first, Event second) { return first.eventTime == second.eventTime; }
 
