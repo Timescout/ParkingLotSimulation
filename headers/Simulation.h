@@ -11,7 +11,7 @@
 #include <Event.h>
 #include <Car.h>
 #include <Building.h>
-#include <ConnectingRoad.h>
+// #include <ConnectingRoad.h>
 #include <Strip.h>
 
 #include <queue>
