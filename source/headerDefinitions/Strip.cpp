@@ -1,33 +1,10 @@
 /*  Strip.cpp
     Andrew Bergman
 
-    Defines the Strip class and ParkingSpot struct.
+    Defines the Strip class.
 */
 
 #include <Strip.h>
-
-constexpr bool ParkingSpot::defaultOccupied;
-constexpr TimePoint ParkingSpot::defaultNextVacantTime;
-constexpr Distance ParkingSpot::defaultDistanceFromEnterance;
-constexpr int ParkingSpot::parkingSpotWidth;
-
-ParkingSpot::ParkingSpot() :
-    occupied(ParkingSpot::defaultOccupied),
-    nextVacantTime(ParkingSpot::defaultNextVacantTime),
-    distanceFromEnterance1(ParkingSpot::defaultDistanceFromEnterance),
-    distanceFromEnterance2(ParkingSpot::defaultDistanceFromEnterance)
-{}
-
-void ParkingSpot::park(TimePoint nextVacant)
-{
-    occupied = true;
-    nextVacantTime = nextVacant;
-}
-
-void ParkingSpot::depart()
-{
-    occupied = false;
-}
 
 Strip::Strip(Location corner1, Location corner2) :
     corner1_(corner1),
@@ -45,7 +22,7 @@ Strip::Strip(Location corner1, Location corner2) :
     for (int i = 0; i < parkingSpots_.size(); i++)
     {
         parkingSpots_[i].distanceFromEnterance1 = (i/2)*ParkingSpot::parkingSpotWidth;
-        parkingSpots_[i].distanceFromEnterance2 = ((parkingSpots_.size()-i)/2)*ParkingSpot::parkingSpotWidth;
+        parkingSpots_[i].distanceFromEnterance2 = ((parkingSpots_.size()-i-1)/2)*ParkingSpot::parkingSpotWidth;
     }
 }
 
