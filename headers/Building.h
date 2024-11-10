@@ -10,26 +10,18 @@
 #include <Utilities.h>
 
 #include <vector>
-#include <exception>
 #include <stdexcept>
-//#include <gtest/gtest.h>
 
 class Building
 {
 private:
-
-    // For testing Constructors
-    //FRIEND_TEST(BuildingUnitTest, DefaultConstructor_Creates_DefaultBuilding);
-    //FRIEND_TEST(BuildingUnitTest, ArgumentedConstructorSingleenterance_Creates_ArgumentedBuilding);
-    //FRIEND_TEST(BuildingUnitTest, ArgumentedConstructorManyenterances_Creates_ArgumentedBuilding);
-
     /// @brief A vector of the Locations of enterances to a Building. 
     std::vector<Location> enterances_;
 public:
     
     ///// Constructors and deconstructor /////
     
-    // Default constructor.
+    /// @brief default constructor.
     Building();
 
     /// @brief Argumented Constructor for Building with one enterance.
@@ -45,7 +37,7 @@ public:
     Building(std::vector<Location> enterances);
 
 
-    // Deconstructor
+    /// @brief Deconstructor
     ~Building();
 
     ///// Get and Set /////
@@ -58,13 +50,13 @@ public:
     /// @param enterance The Location to add the enterenece.
     void addEnterance(Location enterance);
 
-    /// @brief Finds the closest enterance to referencePoint that this Building has.
+    /// @brief Finds the closest enterance to the reference point.
     /// @param referencePoint The point that is considered for finding the closest enterance.
     /// @return The Location of the closest enterance.
     /// @throw std::logic_error If there are no enterances to this Building.
     Location getClosestEnterance(Location referencePoint);
 
-    /// @brief Finds the distance to the closest enternece to referencePoint.
+    /// @brief Finds the distance to the closest enterance to the reference point.
     /// @param referencePoint The point that is considered for finding the closest Distance.
     /// @return The Distance to the closest enterance.
     /// @throw std::logic_error if there are no enterances to this Building.

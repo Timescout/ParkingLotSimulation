@@ -1,7 +1,7 @@
 /*  Strip.h
     Andrew Bergman
 
-    Defines the Strip class and ParkingSpot struct.
+    Defines the Strip class.
 */
 
 #pragma once
@@ -10,7 +10,6 @@
 
 #include <vector>
 #include <Car.h> // need to know how fast Cars go.
-//#include <gtest/gtest.h>
 
 
 

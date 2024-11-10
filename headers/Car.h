@@ -11,15 +11,10 @@
 
 #include <exception>
 #include <random>
-//#include <gtest/gtest.h>
 
 class Car
 {
 private:
-
-    // For testing constructors
-    //FRIEND_TEST(CarUnitTest, DefaultConstructor_Creates_DefaultCar);
-    //FRIEND_TEST(CarUnitTest, ArgumentedConstructor_Creates_ArgumentedCar);
 
     // A pointer to the current Time in the Simulation. This is so that the Car can update its metrics.
     TimePoint* currentTime_;
@@ -38,6 +33,7 @@ private:
     // The location that the car exits the parking lot through. 
     Location endLocation_;
 
+    /// @brief The enterance of the building this car wants to shop at.
     Location buildingEnterance_;
 
 
