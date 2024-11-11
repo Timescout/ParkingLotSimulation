@@ -27,9 +27,9 @@ Car::Car(TimePoint& currentTime, TimePoint arrivalTime, TimeLength shoppingTime,
     currentLocation_(startLocation),
     endLocation_(endLocation),
     buildingEnterance_(buildingEnterance),
-    distanceToMeWeight(distanceToMeWeight),
-    distanceToEnteranceWeight(distanceToEnteranceWeight),
-    arrivalEnterance(startLocation)
+    distanceToMeWeight_(distanceToMeWeight),
+    distanceToEnteranceWeight_(distanceToEnteranceWeight),
+    arrivalEnterance_(startLocation)
 {}
 
 Car::~Car()
@@ -51,7 +51,7 @@ TimePoint Car::getArrivalTime() { return arrivalTime_; }
 
 TimeLength Car::getShoppingTime() { return shoppingTime_; }
 
-std::vector<ParkingSpot>::iterator Car::getParkingSpotItr() { return parkingSpotItr_; }
+std::vector<ParkingSpot>::iterator& Car::getParkingSpotItr() { return parkingSpotItr_; }
 
 void Car::setParkingSpotItr(std::vector<ParkingSpot>::iterator& newItr) { parkingSpotItr_ = newItr; }
 
@@ -64,3 +64,23 @@ Location Car::getEndLocation() { return endLocation_; }
 Location Car::getBuildingEnterance() { return buildingEnterance_; }
 
 void Car::addTimeDriven(TimeLength timeDriven) { timeDriven_ += timeDriven; }
+
+int Car::getStripIndex() { return stripIndex_; }
+
+void Car::setStripIndex(int newStripIndex) { stripIndex_ = newStripIndex; }
+
+int Car::getSpotIndex() { return spotIndex_; }
+
+void Car::setSpotIndex(int newSpotIndex) { spotIndex_ = newSpotIndex; }
+
+float Car::getDistanceToMeWeight() { return distanceToMeWeight_; }
+
+void Car::setDistanceToMeWeight(float newWeight) { distanceToMeWeight_ = newWeight; }
+
+Location Car::getArrivalEnterance() { return arrivalEnterance_; }
+
+void Car::setArrivalEnterance(Location newEnterance) { arrivalEnterance_ = newEnterance; }
+
+float Car::getDistanceToEnteranceWeight() { return distanceToEnteranceWeight_; }
+
+void Car::setDistanceToEnteranceWeight(float newWeight) { distanceToEnteranceWeight_ = newWeight; }

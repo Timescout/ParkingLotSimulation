@@ -36,17 +36,19 @@ private:
     /// @brief The enterance of the building this car wants to shop at.
     Location buildingEnterance_;
 
+    std::vector<ParkingSpot>::iterator parkingSpotItr_;
 
+    int stripIndex_;
+
+    int spotIndex_;
+
+    float distanceToMeWeight_;
+
+    float distanceToEnteranceWeight_;
+
+    Location arrivalEnterance_;
 
 public:
-    std::vector<ParkingSpot>::iterator parkingSpotItr_;
-    int stripIndex;
-    int spotIndex;
-    float distanceToMeWeight;
-
-    Location arrivalEnterance;
-
-    float distanceToEnteranceWeight;
 
     ///// Constructors and Deconstructors. /////
 
@@ -76,7 +78,7 @@ public:
 
     TimeLength getShoppingTime();
 
-    std::vector<ParkingSpot>::iterator getParkingSpotItr();
+    std::vector<ParkingSpot>::iterator& getParkingSpotItr();
 
     void setParkingSpotItr(std::vector<ParkingSpot>::iterator& newItr);
 
@@ -87,6 +89,26 @@ public:
     Location getEndLocation();
 
     Location getBuildingEnterance();
+
+    int getStripIndex();
+
+    void setStripIndex(int newStripIndex);
+
+    int getSpotIndex();
+
+    void setSpotIndex(int newSpotIndex);
+
+    float getDistanceToMeWeight();
+
+    void setDistanceToMeWeight(float newWeight);
+
+    Location getArrivalEnterance();
+
+    void setArrivalEnterance(Location newEnterance);
+
+    float getDistanceToEnteranceWeight();
+
+    void setDistanceToEnteranceWeight(float newWeight);
 
     ///// Other class methods /////
 

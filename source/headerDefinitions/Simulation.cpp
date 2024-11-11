@@ -90,11 +90,11 @@ void Simulation::simulate()
         case Park:
         {
             // if the parking spot is open, park and create a depart event.
-            if (!parkingStrips_[activeCarItr->stripIndex][activeCarItr->spotIndex].occupied)
+            if (!parkingStrips_[activeCarItr->getStripIndex()][activeCarItr->getSpotIndex()].occupied)
             {
                 //std::cout << "strip index: " << activeCarItr->stripIndex << " spot index: " << activeCarItr->spotIndex << " Parked in.\n";
 
-                parkingStrips_[activeCarItr->stripIndex][activeCarItr->spotIndex].park(currentTime_+activeCarItr->getShoppingTime());
+                parkingStrips_[activeCarItr->getStripIndex()][activeCarItr->getSpotIndex()].park(currentTime_+activeCarItr->getShoppingTime());
                 futureEventsList_.push(Event(currentTime_ + activeCarItr->getShoppingTime(), activeCarItr, EventType::Depart));
             }
             // otherwise find a new spot for the car and add a park event.
@@ -111,10 +111,8 @@ void Simulation::simulate()
         case Depart:
         {
             carsInLot--;
-            // The Car leaves the spot.
-            //std::cout << "strip index: " << activeCarItr->stripIndex << " spot index: " << activeCarItr->spotIndex << " Departed.\n";
             activeCarItr->addTimeDriven((1/(float)Car::speed) * taxiDistance(activeCarItr->getCurrentLocation(), activeCarItr->getEndLocation()));
-            parkingStrips_[activeCarItr->stripIndex][activeCarItr->spotIndex].depart();
+            parkingStrips_[activeCarItr->getStripIndex()][activeCarItr->getSpotIndex()].depart();
             outputCar(*activeCarItr);
             break;
         }
@@ -139,7 +137,7 @@ TimeLength Simulation::findParkingSpot(Car& car)
     {
         Distance distanceCartoStrip = taxiDistance(car.getCurrentLocation(), parkingStrips_[i].getEnterance1());
         Distance distanceStripToBuilding = distance(parkingStrips_[i].getEnterance1(), car.getBuildingEnterance());
-        stripsRanked.push_back(std::pair<float, int>(distanceCartoStrip * car.distanceToMeWeight + distanceStripToBuilding * car.distanceToEnteranceWeight, i));
+        stripsRanked.push_back(std::pair<float, int>(distanceCartoStrip * car.getDistanceToMeWeight() + distanceStripToBuilding * car.getDistanceToEnteranceWeight(), i));
     }
     std::sort(stripsRanked.begin(), stripsRanked.end());
 
@@ -170,9 +168,9 @@ TimeLength Simulation::findParkingSpot(Car& car)
                     newLocation.y += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance1: parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance2 ;
                 }
                 car.setCurrentLocation(newLocation);
-                car.stripIndex = stripsRanked[i].second;
+                car.setStripIndex(stripsRanked[i].second);
                 //car.parkingSpotItr_ = parkingSpotItr;
-                car.spotIndex = parkingSpotItr;
+                car.setSpotIndex(parkingSpotItr);
                 Distance distanceDriven = enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance1 : parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance2;
                 //TODO bad, dont do this. \/
                 totalTimeDriven += (1/(float)Car::speed) * distanceDriven;
@@ -237,12 +235,12 @@ void Simulation::outputCar(Car car)
 {
     *output_ << car.getArrivalTime() << ","
              << car.getShoppingTime() << ","
-             << car.distanceToMeWeight << ","
-             << car.distanceToEnteranceWeight << ","
+             << car.getDistanceToMeWeight() << ","
+             << car.getDistanceToEnteranceWeight() << ","
              << car.getBuildingEnterance().x << " " << car.getBuildingEnterance().y << ","
-             << car.arrivalEnterance.x << " " << car.arrivalEnterance.y << ","
-             << car.stripIndex << ","
-             << car.spotIndex << ","
+             << car.getArrivalEnterance().x << " " << car.getArrivalEnterance().y << ","
+             << car.getStripIndex() << ","
+             << car.getSpotIndex() << ","
              << car.getTimeDriven() << "\n";
 }
 
