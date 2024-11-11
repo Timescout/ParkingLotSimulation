@@ -1,3 +1,4 @@
 main
 Data/*
 build/*
+.vscode/settings.json
