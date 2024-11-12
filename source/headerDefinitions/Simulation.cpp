@@ -153,25 +153,24 @@ TimeLength Simulation::findParkingSpot(Car& car)
             // drive to the enterance
             totalTimeDriven += (1/(float)Car::speed) * taxiDistance(car.getCurrentLocation(), enteranceUsed);
             // find the next open spot
-            int parkingSpotItr = parkingStrips_[stripsRanked[i].second].getClosestVacantSpot(enteranceUsed, totalTimeDriven); // TODO rename parkingspotItr
-            if (parkingSpotItr != -1) // if a spot is found
+            int parkingSpotIndex = parkingStrips_[stripsRanked[i].second].getClosestVacantSpot(enteranceUsed); 
+            if (parkingSpotIndex != -1) // if a spot is found
             {
                 Location newLocation = enteranceUsed;
                 Location corner1 = parkingStrips_[stripsRanked[i].second].getCorner1();
                 Location corner2 = parkingStrips_[stripsRanked[i].second].getCorner2();
                 if (abs(corner1.x-corner2.x) > abs(corner1.y - corner2.y))
                 {
-                    newLocation.x += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance1: parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance2 ;
+                    newLocation.x += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance1: parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance2 ;
                 }
                 else
                 {
-                    newLocation.y += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance1: parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance2 ;
+                    newLocation.y += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance1: parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance2 ;
                 }
                 car.setCurrentLocation(newLocation);
                 car.setStripIndex(stripsRanked[i].second);
-                //car.parkingSpotItr_ = parkingSpotItr;
-                car.setSpotIndex(parkingSpotItr);
-                Distance distanceDriven = enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance1 : parkingStrips_[stripsRanked[i].second][parkingSpotItr].distanceFromEnterance2;
+                car.setSpotIndex(parkingSpotIndex);
+                Distance distanceDriven = enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance1 : parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance2;
                 //TODO bad, dont do this. \/
                 totalTimeDriven += (1/(float)Car::speed) * distanceDriven;
                 car.addTimeDriven(totalTimeDriven); // exit
@@ -185,7 +184,6 @@ TimeLength Simulation::findParkingSpot(Car& car)
             car.setCurrentLocation(enterance1 ? parkingStrips_[stripsRanked[i].second].getEnterance1() : parkingStrips_[stripsRanked[i].second].getEnterance2());
         }
     }
-
 }
 
 void Simulation::setSeed(int seed) { seed_ = seed; }

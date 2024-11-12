@@ -105,7 +105,7 @@ TEST(StripUnitTest, GetClosestVacantSpotEmptyLotEnterance1_Gets_ClosestParkingSp
     strip.setEnterance2(Location(26, 64));
     Location referencePoint;
 
-    auto parkingSpotItr = strip.getClosestVacantSpot(referencePoint, 0);
+    auto parkingSpotItr = strip.getClosestVacantSpot(referencePoint);
 
     EXPECT_EQ(parkingSpotItr, 0);
 }
@@ -117,7 +117,7 @@ TEST(StripUnitTest, GetClosestVacantSpotEmptyLotEnterance2_Gets_ClosestParkingSp
     strip.setEnterance2(Location(26, 64));
     Location referencePoint(26, 64);
 
-    auto parkingSpotItr = strip.getClosestVacantSpot(referencePoint, 0);
+    auto parkingSpotItr = strip.getClosestVacantSpot(referencePoint);
 
     EXPECT_EQ(parkingSpotItr, strip.getParkingSpots().size());
 }
@@ -130,7 +130,7 @@ TEST(StripUnitTest, GetClosestVacantSpotFullLot_Returns_EndIterator)
     Location referencePoint(26, 64);
     for(int i = 0; i < strip.getParkingSpots().size(); i++) { strip.getParkingSpots()[i].occupied = true; }
 
-    auto parkingSpotItr = strip.getClosestVacantSpot(referencePoint, 0);
+    auto parkingSpotItr = strip.getClosestVacantSpot(referencePoint);
 
         EXPECT_EQ(parkingSpotItr, -1);
 }

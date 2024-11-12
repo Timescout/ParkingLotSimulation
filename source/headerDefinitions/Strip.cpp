@@ -23,23 +23,23 @@ Strip::Strip(Location corner1, Location corner2) :
     {
         parkingSpots_[i].distanceFromEnterance1 = (i/2)*ParkingSpot::parkingSpotWidth;
         parkingSpots_[i].distanceFromEnterance2 = ((parkingSpots_.size()-i-1)/2)*ParkingSpot::parkingSpotWidth;
+        parkingSpots_[i].position = std::max(xSideLength, ySideLength) == xSideLength ? Location(corner1_.x + parkingSpots_[i].distanceFromEnterance1, corner1_.y) : Location(corner1_.x, corner1_.y+ parkingSpots_[i].distanceFromEnterance1);
     }
 }
 
-int Strip::getClosestVacantSpot(Location referencePoint, TimePoint startingTime) // TODO: refactor this code.
+int Strip::getClosestVacantSpot(Location referencePoint) 
 {
-    bool direction = distance(referencePoint, enterance1_) < distance(referencePoint, enterance2_);
-    auto i = direction ? parkingSpots_.begin() : parkingSpots_.end()--;
-    int increment = direction ? 1 : -1;
-    TimePoint reachesSpot = startingTime;
-    for (int counter = 0; counter < parkingSpots_.size(); counter++)
+    int closest = -1;
+    int closestDistance = INT32_MAX;
+    for (int i = 0; i < parkingSpots_.size(); i++)
     {
-        if (i->nextVacantTime < reachesSpot || !i->occupied) { return counter; }
-        reachesSpot += (1/(float)Car::speed) * ParkingSpot::parkingSpotWidth;
-        i += direction;
+        if (!parkingSpots_[i].occupied and distance(parkingSpots_[i].position, referencePoint) < closestDistance)
+        {
+            closest = i;
+            closestDistance = distance(parkingSpots_[i].position, referencePoint);
+        }
     }
-    // No empty spot is found.
-    return -1;
+    return closest;
 }
 
 const int Strip::getNumberParkingSpots() { return parkingSpots_.size(); }

@@ -28,10 +28,8 @@ public:
     Strip(Location corner1, Location corner2);
 
     /// @brief Finds the closest vacant spot to a Location.
-    /// @param referencePoint Starting point for search.
-    /// @param startingTime The time at which the first spot will be checked.
-    /// @return An iterator to the Spot found. Will be parkingSpots_.end() if no vacant spots are found.
-    int getClosestVacantSpot(Location referencePoint, TimePoint startingTime);
+    /// @return The index of the spot closest to the reference point. If no vaccant spot is found then -1 will be returned instead.
+    int getClosestVacantSpot(Location referencePoint);
 
     /// @brief Gets the number of ParkingSpots in this strip.
     /// @return A count of the spots.

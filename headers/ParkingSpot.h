@@ -6,6 +6,8 @@ struct ParkingSpot
 {
     bool occupied;
 
+    Location position;
+
     TimePoint nextVacantTime;
     Distance distanceFromEnterance1;
     Distance distanceFromEnterance2;

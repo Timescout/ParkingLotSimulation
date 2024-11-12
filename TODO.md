@@ -19,7 +19,6 @@ Future work
 
 
 Car.h
-- There seem to be public member variables. This is bad practice and they should be made private.
 - Consider the public static constexpr default values. Should they exist and should they be public? Are tests that use them helpful?
 - Car speed should probably be a variable in the simulation instead of a constant value in Car
 
@@ -27,5 +26,4 @@ CarUnitTest.h
 - Consider readding the Argumented constructor test. Probably not.
 
 Strip.h
-- Refactor getClosestVacantSpot(). Docs say this returns an iterator but it does not. 
 - Seeing some serious jank with this class.
