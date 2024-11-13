@@ -1,15 +1,5 @@
 This program simulates a parking lot with the goal of comparing driver behavior against how they perform in a crouded parking lot. Drivers arrive at the parking lot, park, idle for a time during which they shop and do other activities, and then they leave. The total distance driven is recorded and output along with driver characteristics into a .csv file. 
 
-intro
-Project goals
-Simulation outline
-    what is a building?
-    what is a parking spot?
-    what is a strip?
-    how do cars behave?
-Simulation setup
-
-
 The simulation is event based which means that it jumps ahead in time to when the next event happens rather than simulate all actions at the same time. During an event the simulation makes decisions based on what type of event it is and the car who the event is occuring to. For example, a car might try to park or arrive in the lot. 
 
 Buildings have enterances and may have one or more. Each car has a building that they want to shop at and some will try to park as close to an enterance of that building as they can. One thing that the simulation will measure is the distance that drivers will have to walk to their desired building. 
