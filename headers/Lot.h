@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <list>
+#include <iterator>
+
 #include <Node.h>
 #include <Building.h>
 
@@ -26,11 +28,11 @@ private:
     > adjacencyVector_;
 
 public:
-    Lot(/* args */);
+    Lot();
     ~Lot();
 
     void addNode(Node node);
-    void addEdge(int firstNodeIndex, int secondNodeIndex, Distance distance);
+    void addEdge(const unsigned int firstNodeIndex, const unsigned int secondNodeIndex, Distance distance);
 
     void addBuilding(Building building);
 
