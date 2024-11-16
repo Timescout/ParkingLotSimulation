@@ -10,7 +10,6 @@
 // Include all test files
 #include <UtilitiesUnitTest.h>
 #include <BuildingUnitTest.h>
-#include <StripUnitTest.h>
 #include <CarUnitTest.h>
 #include <EventUnitTest.h>
 

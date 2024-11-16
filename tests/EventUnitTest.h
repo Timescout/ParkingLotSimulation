@@ -35,7 +35,7 @@ TEST(EventComparerUnitTest, CompFirstBeforeSecond_returns_True)
     Event second(secondTime, carList.begin(), EventType::None);
     EventComparer eventComparer;
 
-    bool firstBeforeSecond = eventComparer.comp(first, second);
+    bool firstBeforeSecond = eventComparer.comp(second, first);
 
     EXPECT_TRUE(firstBeforeSecond);
 }
@@ -51,7 +51,7 @@ TEST(EventComparerUnitTest, CompFirstAfterSecond_returns_False)
     Event second(secondTime, carList.begin(), EventType::None);
     EventComparer eventComparer;
 
-    bool firstBeforeSecond = eventComparer.comp(first, second);
+    bool firstBeforeSecond = eventComparer.comp(second, first);
 
     EXPECT_FALSE(firstBeforeSecond);
 }
