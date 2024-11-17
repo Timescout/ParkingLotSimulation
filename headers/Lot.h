@@ -32,9 +32,16 @@ public:
     ~Lot();
 
     void addNode(Node node);
-    void addEdge(const unsigned int firstNodeIndex, const unsigned int secondNodeIndex, Distance distance);
+
+    /// @brief Add an edge to the lot between two different nodes. This cannot create an edge that already exists. 
+    /// @param firstNodeIndex The index of one of the nodes.
+    /// @param secondNodeIndex The index of the other node.
+    /// @param distanceFunction The distance function used to determine the distance between the two nodes. Default value is the taxi distance defined in utilities.h
+    void addEdge(const unsigned int firstNodeIndex, const unsigned int secondNodeIndex, Distance (*distanceFunction)(Location, Location) = taxiDistance);
 
     void addBuilding(Building building);
 
     std::list<Node>::iterator getNode(int index);
+
+    Distance getDistance(const unsigned int firstNodeIndex, const unsigned int secondNodeIndex);
 };
