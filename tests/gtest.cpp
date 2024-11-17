@@ -12,6 +12,7 @@
 #include <BuildingUnitTest.h>
 #include <CarUnitTest.h>
 #include <EventUnitTest.h>
+#include <LotUnitTest.h>
 
 int main(int argc, char** argv)
 {
