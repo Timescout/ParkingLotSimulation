@@ -8,6 +8,8 @@
 #include <Node.h>
 #include <Building.h>
 
+//#include </json.hpp>
+
 class Lot
 {
 private:
@@ -41,7 +43,7 @@ public:
 
     void addBuilding(Building building);
 
-    std::list<Node>::iterator getNode(int index);
+    std::list<Node>::iterator getNode(const unsigned int index);
 
     Distance getDistance(const unsigned int firstNodeIndex, const unsigned int secondNodeIndex);
 };

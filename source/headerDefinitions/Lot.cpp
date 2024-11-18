@@ -19,11 +19,8 @@ void Lot::addNode(Node node)
 
 void Lot::addEdge(const unsigned int firstNodeIndex, const unsigned int secondNodeIndex, Distance (*distanceFunction)(Location, Location))
 {
-    // Check that the nodes exist
-    if (firstNodeIndex > nodes_.size() or secondNodeIndex > nodes_.size())
-    {
-        throw std::out_of_range("Invalid node index");
-    }
+    auto firstNode = getNode(firstNodeIndex);
+    auto secondNode = getNode(secondNodeIndex);
 
     // Check that we are creating an edge between two different nodes
     if (firstNodeIndex == secondNodeIndex)
@@ -31,8 +28,6 @@ void Lot::addEdge(const unsigned int firstNodeIndex, const unsigned int secondNo
         throw std::invalid_argument("Cannot create an edge between a node and itself.");
     }
 
-    auto firstNode = getNode(firstNodeIndex);
-    auto secondNode = getNode(secondNodeIndex);
     if (distanceFunction == nullptr)
     {
         throw std::invalid_argument("Distance function pointer cannot be nullptr");
@@ -55,8 +50,14 @@ void Lot::addEdge(const unsigned int firstNodeIndex, const unsigned int secondNo
     adjacencyVector_[firstNodeIndex].push_back(secondEdge);
 }
 
-std::list<Node>::iterator Lot::getNode(int index)
+std::list<Node>::iterator Lot::getNode(const unsigned int index)
 {
+    // check that the node exists
+    if (index > nodes_.size())
+    {
+        throw std::out_of_range("Tried to get node which does not exist.");
+    }
+
     auto itr = nodes_.begin();
     std::advance(itr, index);
     return itr;
