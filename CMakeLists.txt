@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
-project(ParkingSimulator)
+project(ParkingSimulator LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Main project build setup
@@ -18,7 +18,11 @@ FetchContent_Declare(
 )
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
+
+# For reading JSON files
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
+
+FetchContent_MakeAvailable(googletest json)
 
 enable_testing()
 
@@ -34,7 +38,14 @@ target_include_directories(tests PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 target_link_libraries( 
     tests
     GTest::gtest_main
+    nlohmann_json::nlohmann_json
 )
 
+target_link_libraries(
+  main
+  nlohmann_json::nlohmann_json
+  )
+
 include(GoogleTest)
+
 gtest_discover_tests(tests)
