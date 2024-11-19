@@ -8,7 +8,7 @@
 #include <Node.h>
 #include <Building.h>
 
-//#include </json.hpp>
+#include <nlohmann/json.hpp>
 
 class Lot
 {
@@ -31,6 +31,9 @@ private:
 
 public:
     Lot();
+
+    Lot(nlohmann::json);
+
     ~Lot();
 
     void addNode(Node node);
@@ -46,4 +49,10 @@ public:
     std::list<Node>::iterator getNode(const unsigned int index);
 
     Distance getDistance(const unsigned int firstNodeIndex, const unsigned int secondNodeIndex);
+
+    nlohmann::json toJson();
+
+    /// @brief Overrites this lot with the one specified by the json file. Destroys all data in this lot.
+    /// @param file The json file.
+    void readJson(nlohmann::json file);
 };

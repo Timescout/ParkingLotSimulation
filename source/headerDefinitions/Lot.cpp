@@ -3,6 +3,11 @@
 
 Lot::Lot() {}
 
+Lot::Lot(nlohmann::json file)
+{
+    readJson(file);
+}
+
 Lot::~Lot() {}
 
 void Lot::addBuilding(Building building)
@@ -74,4 +79,27 @@ Distance Lot::getDistance(const unsigned int firstNodeIndex, const unsigned int 
         }
     }
     return -1;
+}
+
+nlohmann::json Lot::toJson() 
+{
+    return nlohmann::json();
+}
+
+void Lot::readJson(nlohmann::json file)
+{
+    for (auto i = file["Buildings"].begin(); i != file["Buildings"].end(); i++)
+    {
+        buildings_.push_back(Building(Location(i[0], i[1])));
+    }
+
+    for (auto i = file["Nodes"].begin(); i != file["Nodes"].end(); i++)
+    {
+        addNode(Node(Location(i[0][0], i[0][1]), i[1], i[2]));
+    }
+
+    for (auto i = file["Edges"].begin(); i != file["Edges"].end(); i++)
+    {
+        addEdge(i[0], i[1]);
+    }
 }
