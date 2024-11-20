@@ -46,6 +46,8 @@ public:
 
     void addBuilding(Building building);
 
+    std::vector<Building> getBuildings();
+
     std::list<Node>::iterator getNode(const unsigned int index);
 
     Distance getDistance(const unsigned int firstNodeIndex, const unsigned int secondNodeIndex);

@@ -15,6 +15,11 @@ void Lot::addBuilding(Building building)
     buildings_.push_back(building);
 }
 
+std::vector<Building> Lot::getBuildings()
+{
+    return buildings_;
+}
+
 void Lot::addNode(Node node)
 {
     nodes_.push_back(node);
@@ -88,18 +93,29 @@ nlohmann::json Lot::toJson()
 
 void Lot::readJson(nlohmann::json file)
 {
+    // Reset the lot to an empty state.
+    buildings_.clear();
+    nodes_.clear();
+    adjacencyVector_.clear();
+
     for (auto i = file["Buildings"].begin(); i != file["Buildings"].end(); i++)
     {
-        buildings_.push_back(Building(Location(i[0], i[1])));
+        buildings_.push_back(Building(Location(i->at(0), i->at(1))));
     }
 
     for (auto i = file["Nodes"].begin(); i != file["Nodes"].end(); i++)
     {
-        addNode(Node(Location(i[0][0], i[0][1]), i[1], i[2]));
+        addNode(Node(Location(i->at(0).at(0), i->at(0).at(1)), i->at(1), i->at(2)));
     }
 
-    for (auto i = file["Edges"].begin(); i != file["Edges"].end(); i++)
+    for (int i = 0; i < file["AdjacencyValues"].size(); i++) 
     {
-        addEdge(i[0], i[1]);
+        for (int j = 0; j < file["AdjacencyValues"][i].size(); j++)
+        {
+            if (getDistance(i, file["AdjacencyValues"][i][j]) == -1)
+            {
+                addEdge(i, file["AdjacencyValues"][i][j]);
+            }
+        }
     }
 }

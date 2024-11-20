@@ -4,6 +4,30 @@
 
 #include <Lot.h>
 
+nlohmann::json createLotJson()
+{
+    nlohmann::json value = 
+    R"(
+    {
+        "Buildings":
+        [
+            [0,0]
+        ],
+        "Nodes":
+        [
+            [[1, 1], false, false],
+            [[0, 1], true, true]
+        ],
+        "AdjacencyValues":
+        [
+            [1],
+            [0]
+        ]
+    }
+    )"_json;
+    return value;
+}
+
 // TEST(LotUnitTest, TESTNAME)
 // {
 
@@ -77,4 +101,22 @@ TEST(LotUnitTest, GetDistance_EdgeDoesntExist_ReturnsN1)
     int value = lot.getDistance(0, 1);
 
     EXPECT_EQ(value, -1);
+}
+
+TEST(LotUnitTest, ReadJson_CreateLotJson_Success)
+{
+    Lot lot(createLotJson());
+
+    std::vector<Building> buildings = lot.getBuildings();
+    Node nodeZero = *lot.getNode(0);
+    Node nodeOne = *lot.getNode(1);
+
+    EXPECT_EQ(buildings.size(), 1);
+    EXPECT_EQ(buildings[0].getClosestEnterance(Location(0, 0)), Location(0, 0));
+    EXPECT_EQ(nodeZero.position, Location(1, 1));
+    EXPECT_FALSE(nodeZero.canPark);
+    EXPECT_FALSE(nodeZero.occupied);
+    EXPECT_EQ(nodeOne.position, Location(0, 1));
+    EXPECT_TRUE(nodeOne.canPark);
+    EXPECT_TRUE(nodeOne.occupied);
 }
