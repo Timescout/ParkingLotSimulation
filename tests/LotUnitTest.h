@@ -11,7 +11,7 @@ nlohmann::json createLotJson()
     {
         "Buildings":
         [
-            [0,0]
+            [[0,0]]
         ],
         "Nodes":
         [

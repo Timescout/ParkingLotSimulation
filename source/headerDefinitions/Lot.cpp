@@ -100,7 +100,12 @@ void Lot::readJson(nlohmann::json file)
 
     for (auto i = file["Buildings"].begin(); i != file["Buildings"].end(); i++)
     {
-        buildings_.push_back(Building(Location(i->at(0), i->at(1))));
+        Building building;
+        for (auto j = i->begin(); j != i->end(); j++)
+        {
+            building.addEnterance(Location(j->at(0), j->at(1)));
+        }
+        buildings_.push_back(building);
     }
 
     for (auto i = file["Nodes"].begin(); i != file["Nodes"].end(); i++)
