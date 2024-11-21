@@ -88,7 +88,42 @@ Distance Lot::getDistance(const unsigned int firstNodeIndex, const unsigned int 
 
 nlohmann::json Lot::toJson() 
 {
-    return nlohmann::json();
+    nlohmann::json value;
+
+    value.at("Buildings") = {};
+    for (auto i = buildings_.begin(); i != buildings_.end(); i++)
+    {
+        value.at("Buildings").push_back({});
+        auto itr = value.at("Buildings").end();
+        itr--;
+        std::vector<Location> enterancePositions = i->getEnteraneces();
+        for (auto j = enterancePositions.begin(); j != enterancePositions.end(); j++)
+        {
+            itr->push_back({j->x, j->y});
+        }
+    }
+
+    value.at("Nodes") = {};
+    auto itr = value.at("Nodes").begin();
+    for (auto i = nodes_.begin(); i != nodes_.end(); i++)
+    {
+        itr->push_back({{i->position.x, i->position.y}, i->canPark, i->occupied});
+        itr++;
+    }
+
+    value.at("AdjacencyValues") = {};
+    for (auto i = adjacencyVector_.begin(); i != adjacencyVector_.end(); i++)
+    {
+        value.at("AdjacencyValues").push_back({});
+        itr = itr = value.at("AdjacencyValues").end();
+        itr--;
+        for (auto j = i->begin(); j != i->end(); j++)
+        {
+            //itr->push_back(); //TODO finish this.
+        }
+    }
+
+    return value;
 }
 
 void Lot::readJson(nlohmann::json file)

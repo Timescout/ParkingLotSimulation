@@ -8,6 +8,7 @@
 
 #include <Utilities.h>
 #include <ParkingSpot.h>
+#include <Lot.h>
 
 #include <exception>
 #include <random>
@@ -113,6 +114,10 @@ public:
     ///// Other class methods /////
 
     void addTimeDriven(TimeLength timeDriven);
+
+    int evaluate(Node node);
+
+    std::list<Node>::iterator chooseNode(Lot lot);
 
     ///// static member variables /////
 
