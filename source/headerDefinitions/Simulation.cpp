@@ -9,7 +9,7 @@
 
 Simulation::Simulation() {}
 
-void Simulation::addBuilding(Building building) { buildings_.push_back(building); }
+void Simulation::addBuilding(Building building) { lot_.addBuilding(building); }
 
 void Simulation::addEnterance(Location enterance) { enterances_.push_back(enterance); }
 
@@ -188,7 +188,7 @@ TimeLength Simulation::findParkingSpot(Car& car)
 
 void Simulation::setSeed(int seed) { seed_ = seed; }
 
-void Simulation::setRunTime(TimeLength funTime) { simulationTime_ = funTime; }
+void Simulation::setRunTime(TimeLength runTime) { simulationTime_ = runTime; }
 
 void Simulation::setAverageDensity(float averageDensity) { parkingOccupancy_ = averageDensity; }
 
