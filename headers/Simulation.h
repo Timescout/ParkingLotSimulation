@@ -11,8 +11,8 @@
 #include <Event.h>
 #include <Car.h>
 #include <Building.h>
-// #include <ConnectingRoad.h>
 #include <Strip.h>
+#include <Lot.h>
 
 #include <queue>
 #include <deque>
@@ -47,7 +47,7 @@ private:
     /// @brief The target parking lot occupancy. Higher means more cars lower means less cars overall.
     float parkingOccupancy_;
 
-    /// @brief Vector of buildings in the simulation. Buildings may "overlap".
+    /// @brief Vector of buildings in the simulation.
     std::vector<Building> buildings_;
 
     /// @brief Vector of the Locations of enterances to the Parking lot.
@@ -57,6 +57,8 @@ private:
     std::vector<Strip> parkingStrips_;
 
     int carsInLot;
+
+    Lot lot_;
     
 public:
     Simulation();
@@ -80,7 +82,7 @@ public:
 
     void setSeed(int seed);
 
-    void setRunTime(TimeLength funTime);
+    void setRunTime(TimeLength runTime);
 
     void setAverageDensity(float density);
 
