@@ -17,6 +17,8 @@ int main()
     Simulation simulation;
     simulation.setRunTime(1440); // set simulation for a full day.
     simulation.setAverageDensity(.95);
+    simulation.setAverageShoppingTime(41);
+    simulation.setShoppingDeviation(15);
     simulation.setOutputStream(dataFile);
     // add 4 buildings to the simulation
     for (int i = 0; i < 4; i++)

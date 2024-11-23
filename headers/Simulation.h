@@ -41,6 +41,12 @@ private:
     /// @brief How long the simulation will generate new arrivals for.
     TimeLength simulationTime_;
 
+    /// @brief The average amount of time that a person will shop.
+    TimeLength averageShoppingTime_;
+
+    /// @brief the standard deviation for the average time a person will shop.
+    int shoppingTimeDeviation_;
+
     /// @brief The place where the simulation outputs data. Can be a file, cout, or something else.
     std::ostream* output_;
 
@@ -85,6 +91,10 @@ public:
     void setRunTime(TimeLength runTime);
 
     void setAverageDensity(float density);
+
+    void setAverageShoppingTime(TimeLength averageTime);
+
+    void setShoppingDeviation(int averageDiviation);
 
     void outputParameters();
 

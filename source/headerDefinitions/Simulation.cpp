@@ -27,11 +27,11 @@ void Simulation::generateArrivals()
     { 
         totalParkingSpots += i->getNumberParkingSpots();
     }
-    int numCars = parkingOccupancy_ * totalParkingSpots * simulationTime_ / 41; // 41 is expected shopping time.
+    int numCars = parkingOccupancy_ * totalParkingSpots * simulationTime_ / averageShoppingTime_; 
 
     // Generate Cars
     cars_ = std::list<Car>(numCars); // clear cars
-    std::normal_distribution<TimeLength> shoppingTimeModel(41, 15); // average shopping time is 41 minutes, and I kindof just guessed the standard deviation
+    std::normal_distribution<TimeLength> shoppingTimeModel(averageShoppingTime_, shoppingTimeDeviation_); 
     std::uniform_real_distribution<TimeLength> arrivalTimeModel(0, simulationTime_);
     std::default_random_engine generator(seed_); // needed for the normal distribution.
     TimePoint arrivalTime;
@@ -191,6 +191,10 @@ void Simulation::setSeed(int seed) { seed_ = seed; }
 void Simulation::setRunTime(TimeLength runTime) { simulationTime_ = runTime; }
 
 void Simulation::setAverageDensity(float averageDensity) { parkingOccupancy_ = averageDensity; }
+
+void Simulation::setAverageShoppingTime(TimeLength shoppingTime) { averageShoppingTime_ = shoppingTime; }
+
+void Simulation::setShoppingDeviation(int deviation) { shoppingTimeDeviation_ = deviation; }
 
 void Simulation::outputParameters()
 {
