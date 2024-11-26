@@ -13,8 +13,6 @@ void Simulation::addBuilding(Building building) { lot_.addBuilding(building); }
 
 void Simulation::addEnterance(Location enterance) { enterances_.push_back(enterance); }
 
-void Simulation::addParkingStrip(Strip parkingStrip) { parkingStrips_.push_back(parkingStrip); }
-
 void Simulation::generateArrivals()
 {
     // set up the generation
@@ -89,32 +87,12 @@ void Simulation::simulate()
         }
         case Park:
         {
-            // if the parking spot is open, park and create a depart event.
-            if (!parkingStrips_[activeCarItr->getStripIndex()][activeCarItr->getSpotIndex()].occupied)
-            {
-                //std::cout << "strip index: " << activeCarItr->stripIndex << " spot index: " << activeCarItr->spotIndex << " Parked in.\n";
-
-                parkingStrips_[activeCarItr->getStripIndex()][activeCarItr->getSpotIndex()].park(currentTime_+activeCarItr->getShoppingTime());
-                futureEventsList_.push(Event(currentTime_ + activeCarItr->getShoppingTime(), activeCarItr, EventType::Depart));
-            }
-            // otherwise find a new spot for the car and add a park event.
-            else
-            {
-                // find a parking spot for the car.
-                TimeLength searchTime = findParkingSpot(*activeCarItr); // this function will add time to the diveTime of the Car.
-                // create a park event.
-                futureEventsList_.push(Event(currentTime_ + searchTime, activeCarItr, EventType::Park));
-            }
-            break;
+            
         }
 
         case Depart:
         {
-            carsInLot--;
-            activeCarItr->addTimeDriven((1/(float)Car::speed) * taxiDistance(activeCarItr->getCurrentLocation(), activeCarItr->getEndLocation()));
-            parkingStrips_[activeCarItr->getStripIndex()][activeCarItr->getSpotIndex()].depart();
-            outputCar(*activeCarItr);
-            break;
+            
         }
         default:
         {
@@ -129,62 +107,62 @@ void Simulation::addEvent(Event event)
     futureEventsList_.push(event);
 }
 
-TimeLength Simulation::findParkingSpot(Car& car)
-{
-    // Rank all of the parking strips for the car.
-    std::vector<std::pair<float, int>> stripsRanked;
-    for (int i = 0; i < parkingStrips_.size(); i++)
-    {
-        Distance distanceCartoStrip = taxiDistance(car.getCurrentLocation(), parkingStrips_[i].getEnterance1());
-        Distance distanceStripToBuilding = distance(parkingStrips_[i].getEnterance1(), car.getBuildingEnterance());
-        stripsRanked.push_back(std::pair<float, int>(distanceCartoStrip * car.getDistanceToMeWeight() + distanceStripToBuilding * car.getDistanceToEnteranceWeight(), i));
-    }
-    std::sort(stripsRanked.begin(), stripsRanked.end());
+// TimeLength Simulation::findParkingSpot(Car& car)
+// {
+//     // Rank all of the parking strips for the car.
+//     std::vector<std::pair<float, int>> stripsRanked;
+//     for (int i = 0; i < parkingStrips_.size(); i++)
+//     {
+//         Distance distanceCartoStrip = taxiDistance(car.getCurrentLocation(), parkingStrips_[i].getEnterance1());
+//         Distance distanceStripToBuilding = distance(parkingStrips_[i].getEnterance1(), car.getBuildingEnterance());
+//         stripsRanked.push_back(std::pair<float, int>(distanceCartoStrip * car.getDistanceToMeWeight() + distanceStripToBuilding * car.getDistanceToEnteranceWeight(), i));
+//     }
+//     std::sort(stripsRanked.begin(), stripsRanked.end());
 
-    // go through the strips and search for a parking strip.
-    bool enterance1 = true;
-    TimeLength totalTimeDriven = 0;
-    while (true)
-    {
-        for (int i = 0; i < stripsRanked.size(); i ++)
-        {
-            // determine which enterance to search for a spot from.
-            Location enteranceUsed = enterance1 ? parkingStrips_[stripsRanked[i].second].getEnterance1() : parkingStrips_[stripsRanked[i].second].getEnterance2();
-            // drive to the enterance
-            totalTimeDriven += (1/(float)Car::speed) * taxiDistance(car.getCurrentLocation(), enteranceUsed);
-            // find the next open spot
-            int parkingSpotIndex = parkingStrips_[stripsRanked[i].second].getClosestVacantSpot(enteranceUsed); 
-            if (parkingSpotIndex != -1) // if a spot is found
-            {
-                Location newLocation = enteranceUsed;
-                Location corner1 = parkingStrips_[stripsRanked[i].second].getCorner1();
-                Location corner2 = parkingStrips_[stripsRanked[i].second].getCorner2();
-                if (abs(corner1.x-corner2.x) > abs(corner1.y - corner2.y))
-                {
-                    newLocation.x += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance1: parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance2 ;
-                }
-                else
-                {
-                    newLocation.y += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance1: parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance2 ;
-                }
-                car.setCurrentLocation(newLocation);
-                car.setStripIndex(stripsRanked[i].second);
-                car.setSpotIndex(parkingSpotIndex);
-                Distance distanceDriven = enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance1 : parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance2;
-                //TODO bad, dont do this. \/
-                totalTimeDriven += (1/(float)Car::speed) * distanceDriven;
-                car.addTimeDriven(totalTimeDriven); // exit
-                return totalTimeDriven;
-            }
-            // if a spot is not found, try the next strip
-            enterance1 = !enterance1;
-            // add time driven down the strip.
-            totalTimeDriven += (1/(float)Car::speed) * distance(parkingStrips_[stripsRanked[i].second].getEnterance1(), parkingStrips_[stripsRanked[i].second].getEnterance2());
-            // set car's current location to the opposite enterance.
-            car.setCurrentLocation(enterance1 ? parkingStrips_[stripsRanked[i].second].getEnterance1() : parkingStrips_[stripsRanked[i].second].getEnterance2());
-        }
-    }
-}
+//     // go through the strips and search for a parking strip.
+//     bool enterance1 = true;
+//     TimeLength totalTimeDriven = 0;
+//     while (true)
+//     {
+//         for (int i = 0; i < stripsRanked.size(); i ++)
+//         {
+//             // determine which enterance to search for a spot from.
+//             Location enteranceUsed = enterance1 ? parkingStrips_[stripsRanked[i].second].getEnterance1() : parkingStrips_[stripsRanked[i].second].getEnterance2();
+//             // drive to the enterance
+//             totalTimeDriven += (1/(float)Car::speed) * taxiDistance(car.getCurrentLocation(), enteranceUsed);
+//             // find the next open spot
+//             int parkingSpotIndex = parkingStrips_[stripsRanked[i].second].getClosestVacantSpot(enteranceUsed); 
+//             if (parkingSpotIndex != -1) // if a spot is found
+//             {
+//                 Location newLocation = enteranceUsed;
+//                 Location corner1 = parkingStrips_[stripsRanked[i].second].getCorner1();
+//                 Location corner2 = parkingStrips_[stripsRanked[i].second].getCorner2();
+//                 if (abs(corner1.x-corner2.x) > abs(corner1.y - corner2.y))
+//                 {
+//                     newLocation.x += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance1: parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance2 ;
+//                 }
+//                 else
+//                 {
+//                     newLocation.y += enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance1: parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance2 ;
+//                 }
+//                 car.setCurrentLocation(newLocation);
+//                 car.setStripIndex(stripsRanked[i].second);
+//                 car.setSpotIndex(parkingSpotIndex);
+//                 Distance distanceDriven = enterance1 ? parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance1 : parkingStrips_[stripsRanked[i].second][parkingSpotIndex].distanceFromEnterance2;
+//                 //TODO bad, dont do this. \/
+//                 totalTimeDriven += (1/(float)Car::speed) * distanceDriven;
+//                 car.addTimeDriven(totalTimeDriven); // exit
+//                 return totalTimeDriven;
+//             }
+//             // if a spot is not found, try the next strip
+//             enterance1 = !enterance1;
+//             // add time driven down the strip.
+//             totalTimeDriven += (1/(float)Car::speed) * distance(parkingStrips_[stripsRanked[i].second].getEnterance1(), parkingStrips_[stripsRanked[i].second].getEnterance2());
+//             // set car's current location to the opposite enterance.
+//             car.setCurrentLocation(enterance1 ? parkingStrips_[stripsRanked[i].second].getEnterance1() : parkingStrips_[stripsRanked[i].second].getEnterance2());
+//         }
+//     }
+// }
 
 void Simulation::setSeed(int seed) { seed_ = seed; }
 

@@ -11,7 +11,6 @@
 #include <Event.h>
 #include <Car.h>
 #include <Building.h>
-#include <Strip.h>
 #include <Lot.h>
 
 #include <queue>
@@ -59,9 +58,6 @@ private:
     /// @brief Vector of the Locations of enterances to the Parking lot.
     std::vector<Location> enterances_;
 
-    /// @brief Vector that holds parking strips.
-    std::vector<Strip> parkingStrips_;
-
     int carsInLot;
 
     Lot lot_;
@@ -73,8 +69,6 @@ public:
 
     void addEnterance(Location enterance);
 
-    void addParkingStrip(Strip parkingStrip);
-
     void generateArrivals();
 
     void simulate();
@@ -84,7 +78,7 @@ public:
     /// @brief Finds a parking spot in the parking lot for the given car. Starts looking at the car's current location.
     /// @param car The car that a parking spot is found for.
     /// @return How long the car spent looking for the spot, add to current time to get when the car arrives.
-    TimeLength findParkingSpot(Car& car);
+    //TimeLength findParkingSpot(Car& car);
 
     void setSeed(int seed);
 
