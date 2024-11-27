@@ -85,8 +85,13 @@ float Car::getDistanceToEnteranceWeight() { return distanceToEnteranceWeight_; }
 
 void Car::setDistanceToEnteranceWeight(float newWeight) { distanceToEnteranceWeight_ = newWeight; }
 
+int Car::getSpeed() { return speed_; }
+
+void Car::setSpeed(int newSpeed) { speed_ = newSpeed; }
+
 std::list<Node>::iterator Car::chooseNode(Lot lot)
 {
     // Find all parking spots this car can see.
     // 
 }
+

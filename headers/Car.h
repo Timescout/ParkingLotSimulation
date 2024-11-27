@@ -49,6 +49,8 @@ private:
 
     Location arrivalEnterance_;
 
+    int speed_;
+
 public:
 
     ///// Constructors and Deconstructors. /////
@@ -57,6 +59,7 @@ public:
     static constexpr TimeLength defaultTimeDriven = 0;
     static constexpr TimePoint defaultArrivalTime = 0;
     static constexpr TimeLength defaultShoppingTime = 0;
+    static constexpr int defaultSpeed = 22;
     
     // Default constructor, creates a Car with default values.
     Car();
@@ -111,6 +114,10 @@ public:
 
     void setDistanceToEnteranceWeight(float newWeight);
 
+    int getSpeed();
+
+    void setSpeed(int newSpeed);
+
     ///// Other class methods /////
 
     void addTimeDriven(TimeLength timeDriven);
@@ -118,11 +125,4 @@ public:
     int evaluate(Node node);
 
     std::list<Node>::iterator chooseNode(Lot lot);
-
-    ///// static member variables /////
-
-    // How fast all of the cars are driving in the parking lot.
-    static const int speed = 22; // units are feet per second, 22 feet per second is 15 miles per hour
-    
-
 };
