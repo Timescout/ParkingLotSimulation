@@ -14,7 +14,7 @@ class Lot
 {
 private:
     /// @brief Where the nodes are held. Since each node has a lot of data which would make access complicated storing this and the graph connections separatly is the way that I've decided to do things. It is a list since in the adjacency vector iterators to specific nodes are used and a list will not invalidate those when adding new nodes.
-    std::list<Node> nodes_; 
+    std::vector<Node> nodes_; 
 
     std::vector<Building> buildings_;
 
@@ -24,7 +24,7 @@ private:
         <
             std::pair
             <
-                std::list<Node>::iterator, Distance
+                unsigned int, Distance
             >
         >
     > adjacencyVector_;
@@ -48,7 +48,7 @@ public:
 
     std::vector<Building> getBuildings();
 
-    std::list<Node>::iterator getNode(const unsigned int index);
+    Node getNode(const unsigned int index);
 
     Distance getDistance(const unsigned int firstNodeIndex, const unsigned int secondNodeIndex);
 

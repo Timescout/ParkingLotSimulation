@@ -24,15 +24,16 @@ void Lot::addNode(Node node)
 {
     nodes_.push_back(node);
     // When a new node is added you need to add an element to the adjacency vector.
-    adjacencyVector_.push_back(std::vector<std::pair<std::list<Node>::iterator, Distance>>());
+    adjacencyVector_.push_back(std::vector<std::pair<unsigned int, Distance>>());
 }
 
 void Lot::addEdge(const unsigned int firstNodeIndex, const unsigned int secondNodeIndex, Distance (*distanceFunction)(Location, Location))
 {
-    auto firstNode = getNode(firstNodeIndex);
-    auto secondNode = getNode(secondNodeIndex);
+    // Need these for the distance function, and to check that these nodes exist.
+    Node firstNode = getNode(firstNodeIndex);
+    Node secondNode = getNode(secondNodeIndex);
+    Distance distance = distanceFunction(firstNode.position, secondNode.position);
 
-    // Check that we are creating an edge between two different nodes
     if (firstNodeIndex == secondNodeIndex)
     {
         throw std::invalid_argument("Cannot create an edge between a node and itself.");
@@ -42,43 +43,44 @@ void Lot::addEdge(const unsigned int firstNodeIndex, const unsigned int secondNo
     {
         throw std::invalid_argument("Distance function pointer cannot be nullptr");
     }
-    Distance distance = distanceFunction(firstNode->position, secondNode->position);
 
     // Check that the edge doesn't already exist
     for (auto i = adjacencyVector_[firstNodeIndex].begin(); i != adjacencyVector_[firstNodeIndex].end(); i++)
     {
-        if (i->first == secondNode)
+        if (i->first == secondNodeIndex)
         {
             throw std::invalid_argument("Edge already exists.");
         }
     }
 
-    auto firstEdge = std::pair<std::list<Node>::iterator, Distance>(firstNode, distance);
+    auto firstEdge = std::pair<unsigned int, Distance>(firstNodeIndex, distance);
     adjacencyVector_[secondNodeIndex].push_back(firstEdge);
 
-    auto secondEdge = std::pair<std::list<Node>::iterator, Distance>(secondNode, distance);
+    auto secondEdge = std::pair<unsigned int, Distance>(secondNodeIndex, distance);
     adjacencyVector_[firstNodeIndex].push_back(secondEdge);
 }
 
-std::list<Node>::iterator Lot::getNode(const unsigned int index)
+Node Lot::getNode(const unsigned int index)
 {
     // check that the node exists
-    if (index > nodes_.size())
+    if (index >= nodes_.size())
     {
         throw std::out_of_range("Tried to get node which does not exist.");
     }
 
-    auto itr = nodes_.begin();
-    std::advance(itr, index);
-    return itr;
+    return nodes_[index];
 }
 
 Distance Lot::getDistance(const unsigned int firstNodeIndex, const unsigned int secondNodeIndex)
 {
-    auto secondNode = getNode(secondNodeIndex);
+    // check that the nodes exist
+    if (firstNodeIndex >= nodes_.size() or secondNodeIndex >= nodes_.size())
+    {
+        throw std::out_of_range("Tried to get distance between nodes that do not exist.");
+    }
     for (auto i = adjacencyVector_[firstNodeIndex].begin(); i != adjacencyVector_[firstNodeIndex].end(); i++)
     {
-        if (i->first == secondNode)
+        if (i->first == secondNodeIndex)
         {
             return i->second;
         }

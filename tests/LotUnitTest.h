@@ -108,8 +108,8 @@ TEST(LotUnitTest, ReadJson_CreateLotJson_Success)
     Lot lot(createLotJson());
 
     std::vector<Building> buildings = lot.getBuildings();
-    Node nodeZero = *lot.getNode(0);
-    Node nodeOne = *lot.getNode(1);
+    Node nodeZero = lot.getNode(0);
+    Node nodeOne = lot.getNode(1);
 
     EXPECT_EQ(buildings.size(), 1);
     EXPECT_EQ(buildings[0].getClosestEnterance(Location(0, 0)), Location(0, 0));
