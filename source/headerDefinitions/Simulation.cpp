@@ -21,10 +21,10 @@ void Simulation::generateArrivals()
     
     // find how many cars need to be generated.
     int totalParkingSpots = 0;
-    for (auto i = parkingStrips_.begin(); i != parkingStrips_.end(); i++) 
-    { 
-        totalParkingSpots += i->getNumberParkingSpots();
-    }
+    //for (auto i = parkingStrips_.begin(); i != parkingStrips_.end(); i++) 
+    //{ 
+    //    totalParkingSpots += i->getNumberParkingSpots();
+    //}
     int numCars = parkingOccupancy_ * totalParkingSpots * simulationTime_ / averageShoppingTime_; 
 
     // Generate Cars
@@ -77,12 +77,12 @@ void Simulation::simulate()
         {
         case Arrive:
         {
-            carsInLot++;
+            //carsInLot++;
             //std::cout << "Cars in lot: " << carsInLot << "\n";
             // find a parking spot for the car.
-            TimeLength searchTime = findParkingSpot(*activeCarItr); // this function will add time to the diveTime of the Car.
+            //TimeLength searchTime = findParkingSpot(*activeCarItr); // this function will add time to the diveTime of the Car.
             // create a park event.
-            futureEventsList_.push(Event(currentTime_ + searchTime, activeCarItr, EventType::Park));
+            //futureEventsList_.push(Event(currentTime_ + searchTime, activeCarItr, EventType::Park));
             break;
         }
         case Park:
@@ -191,18 +191,18 @@ void Simulation::outputParameters()
     }
     *output_ << "Parking Strips\n"
              << "Corner 1, Corner 2, enterance 1, Enternece 2, Num Parking Spots\n";
-    for (auto i = parkingStrips_.begin(); i != parkingStrips_.end(); i++)
-    {
-        Location corner1 = i->getCorner1();
-        Location corner2 = i->getCorner2();
-        Location enterance1 = i->getEnterance1();
-        Location enternece2 = i->getEnterance2();
-        *output_ << corner1.x << " " << corner1.y << ","
-                 << corner2.x << " " << corner2.y << ","
-                 << enterance1.x << " " << enterance1.y << ","
-                 << enternece2.x << " " << enternece2.y << ","
-                 << i->getNumberParkingSpots() << "\n";
-    }
+    //for (auto i = parkingStrips_.begin(); i != parkingStrips_.end(); i++)
+    // {
+    //     Location corner1 = i->getCorner1();
+    //     Location corner2 = i->getCorner2();
+    //     Location enterance1 = i->getEnterance1();
+    //     Location enternece2 = i->getEnterance2();
+    //     *output_ << corner1.x << " " << corner1.y << ","
+    //              << corner2.x << " " << corner2.y << ","
+    //              << enterance1.x << " " << enterance1.y << ","
+    //              << enternece2.x << " " << enternece2.y << ","
+    //              << i->getNumberParkingSpots() << "\n";
+    // }
     *output_ << "enterances to the Parking Lot\n";
     for (auto i = enterances_.begin(); i != enterances_.end(); i++)
     {
