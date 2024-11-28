@@ -120,3 +120,12 @@ TEST(LotUnitTest, ReadJson_CreateLotJson_Success)
     EXPECT_TRUE(nodeOne.canPark);
     EXPECT_TRUE(nodeOne.occupied);
 }
+
+TEST(LotUnitTest, ToJson_CreateLotJson_Success)
+{
+    Lot lot(createLotJson());
+
+    nlohmann::json testJson = lot.toJson();
+
+    EXPECT_EQ(createLotJson(), testJson);
+}
