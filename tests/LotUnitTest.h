@@ -85,6 +85,18 @@ TEST(LotUnitTest, AddEdge_InsideLoop_Works)
     }
 }
 
+TEST(LotUnitTest, AddEdge_NonDefaultDistance_Works)
+{
+    Lot lot;
+    lot.addNode(Node(Location(0, 0)));
+    lot.addNode(Node(Location(3, 4)));
+
+    lot.addEdge(0, 1, distance);
+
+    EXPECT_EQ(lot.getDistance(0, 1), 5);
+}
+
+
 TEST(LotUnitTest, GetDistance_NodeDoesntExist_ThrowsError)
 {
     Lot lot;
