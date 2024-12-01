@@ -6,12 +6,6 @@ canPark(canPark),
 occupied(occupied)
 {}
 
-Node::Node()
-{
-    Node(Location(0, 0), false, false);
-}
+Node::Node() : Node(Location(0,0), false, false) {}
 
-Node::Node(Location position)
-{
-    Node(position, false, false);
-}
+Node::Node(Location position) : Node(position, false, false) {}
