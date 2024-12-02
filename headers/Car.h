@@ -20,8 +20,7 @@ private:
     // A pointer to the current Time in the Simulation. This is so that the Car can update its metrics.
     TimePoint* currentTime_;
 
-    // How long this car has driven in total
-    TimeLength timeDriven_; 
+    Lot* lot_;
 
     // When the Car arrived in the Parking Lot
     TimePoint arrivalTime_;
@@ -29,43 +28,26 @@ private:
     // How much time this Car will spend shopping
     TimeLength shoppingTime_;
 
-    Location currentLocation_;
-
     // The location that the car exits the parking lot through. 
-    Location endLocation_;
+    unsigned int exitIndex_;
+
+    unsigned int arrivalIndex_;
 
     /// @brief The enterance of the building this car wants to shop at.
     Location buildingEnterance_;
 
-    std::vector<ParkingSpot>::iterator parkingSpotItr_;
-
-    int stripIndex_;
-
-    int spotIndex_;
-
-    float distanceToMeWeight_;
-
-    float distanceToEnteranceWeight_;
-
-    Location arrivalEnterance_;
-
     int speed_;
 
+    unsigned int currentLocationIndex_;
 public:
 
     ///// Constructors and Deconstructors. /////
-
-    static constexpr TimePoint* defaultCurrentTime = nullptr;
-    static constexpr TimeLength defaultTimeDriven = 0;
-    static constexpr TimePoint defaultArrivalTime = 0;
-    static constexpr TimeLength defaultShoppingTime = 0;
-    static constexpr int defaultSpeed = 22;
     
     // Default constructor, creates a Car with default values.
     Car();
 
     // Argumented constructor, creates a Car with the given values.
-    Car(TimePoint& currentTime, TimePoint arrivalTime, TimeLength shoppingTime, Location startLocation, Location endLocation, Location buildingEnterance, float distanceToMeWeight, float distanceToEnteranceWeight);
+    Car(TimePoint& currentTime, Lot& lot, TimePoint arrivalTime, TimeLength shoppingTime, unsigned int arrivalIndex, unsigned int exitIndex, int buildingIndex, int buildingEnteranceIndex);
 
     // Deconstructor. Sets currentTime_ to nullptr.
     ~Car();
@@ -82,37 +64,17 @@ public:
 
     TimeLength getShoppingTime();
 
-    std::vector<ParkingSpot>::iterator& getParkingSpotItr();
-
-    void setParkingSpotItr(std::vector<ParkingSpot>::iterator& newItr);
-
     Location getCurrentLocation();
 
     void setCurrentLocation(Location newLocation);
 
-    Location getEndLocation();
+    unsigned int getEndLocation();
 
     Location getBuildingEnterance();
-
-    int getStripIndex();
-
-    void setStripIndex(int newStripIndex);
-
-    int getSpotIndex();
-
-    void setSpotIndex(int newSpotIndex);
-
-    float getDistanceToMeWeight();
-
-    void setDistanceToMeWeight(float newWeight);
 
     Location getArrivalEnterance();
 
     void setArrivalEnterance(Location newEnterance);
-
-    float getDistanceToEnteranceWeight();
-
-    void setDistanceToEnteranceWeight(float newWeight);
 
     int getSpeed();
 

@@ -29,7 +29,7 @@ TEST(CarUnitTest, DefaultConstructor_Creates_DefaultCar)
 //     Car car(testCurrentTime, testArrivalTime, testShoppingTime);
 
 //     EXPECT_EQ(car.currentTime_, &testCurrentTime);
-//     EXPECT_EQ(car.timeDriven_, car.defaultTimeDriven);
+//     EXPECT_EQ(car.totalTimeDriven_, car.defaultTimeDriven);
 //     EXPECT_EQ(car.arrivalTime_, testArrivalTime);
 //     EXPECT_EQ(car.shoppingTime_, testShoppingTime);
 // }
