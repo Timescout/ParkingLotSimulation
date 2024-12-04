@@ -52,6 +52,16 @@ public:
 
     Distance getDistance(const unsigned int firstNodeIndex, const unsigned int secondNodeIndex);
 
+    /// @brief Returns a list of visible nodes from the current node that are currently unoccuped. If nodes are blocked by occuped spaces then they will not be returned from this function.
+    /// @param currentPositionIndex Index of the node which this is called from. 
+    /// @return A vector of visible empty nodes.
+    std::vector<unsigned int> getVisibleEmptyNodes(unsigned int currentPositionIndex);
+
+    /// @brief Returns a list of visible nodes from the current node that are currently unoccuped. If nodes are blocked by occuped spaces then they will not be returned from this function.
+    /// @param currentPosition The location this function is called from.
+    /// @return A vector of visible empty nodes.
+    std::vector<unsigned int> getVisibleEmptyNodes(Location currentPosition);
+
     nlohmann::json toJson();
 
     /// @brief Overrites this lot with the one specified by the json file. Destroys all data in this lot.

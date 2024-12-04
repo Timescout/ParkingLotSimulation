@@ -88,6 +88,31 @@ Distance Lot::getDistance(const unsigned int firstNodeIndex, const unsigned int 
     return -1;
 }
 
+std::vector<unsigned int> Lot::getVisibleEmptyNodes(unsigned int currentLocationIndex)
+{
+    if (currentLocationIndex >= nodes_.size())
+    {
+        throw std::out_of_range("Tried to get visible empty nodes from a node that does not exist");
+    }
+    return getVisibleEmptyNodes(nodes_[currentLocationIndex].position);
+}
+
+// this is going to be an O(n^2) algorithm. possible place for improvment.
+std::vector<unsigned int> Lot::getVisibleEmptyNodes(Location currentLocation)
+{
+    // steps to this algo:
+    // iterate through all nodes
+    // determine if that node is visible
+    // return all visible nodes.
+
+    std::vector<unsigned int> visibleNodes;
+    for (int i = 0; i < nodes_.size(); i++)
+    {
+        for (int j = 0; j < nodes_.size(); i++);
+    }
+    return visibleNodes;
+}
+
 nlohmann::json Lot::toJson() 
 {
     nlohmann::json value {
